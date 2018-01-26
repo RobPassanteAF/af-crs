@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import {NgForm} from "@angular/forms";
+import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import {CRSUser} from "../../models/CRSUser";
 
 /**
  * Generated class for the RegisterPage page.
@@ -15,14 +17,24 @@ import {NgForm} from "@angular/forms";
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user:CRSUser;
+
+  constructor(private lrService: LoginAndRegistrationProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.user = this.lrService.getUser();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
 
-  validateInvitation(form:NgForm) {
-    console.log(form.value.invitation);
+  finishRegistration(form:NgForm) {
+    if(form.value.pw1 === form.value.pw2){
+      this.lrService.finalizeRegistration(form.value.pw1).subscribe((result) => {
+        console.log('REGISTRATION COMPLETE');
+      }, err => {
+        console.log('REGISTRATION ERROR');
+      });
+    }
+
   }
 }

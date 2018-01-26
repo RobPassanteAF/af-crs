@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <form class="bd-example" #f="ngForm">
+  <form class="bd-example" #loginForm="ngForm">
     <fieldset>
       <legend>Log in to AF CRS</legend>
 
@@ -32,7 +32,7 @@
 
       </ion-list>
 
-      <button ion-button icon-left (click)="login(f)">
+      <button ion-button icon-left (click)="login(loginForm)">
         <ion-icon name="lock"></ion-icon>
         Log-In
       </button>
@@ -40,9 +40,16 @@
     </fieldset>
   </form>
 
-  <h4>New to CRS?</h4>
-  <button ion-button icon-left (click)="startRegistration()">
-    <ion-icon name="person-add"></ion-icon>
-    Sign-Up
-  </button>
+  <h4>Have a CRS Invitation Code?</h4>
+  <form #invitationForm="ngForm">
+    <ion-item>
+      <ion-label stacked>Invitation Code</ion-label>
+      <ion-input type="text" id="invitationCode" name="invitationCode" [(ngModel)]="invitationCode" ></ion-input>
+    </ion-item>
+    <button ion-button icon-left (click)="validateInvitation(invitationForm)">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      Validate
+    </button>
+  </form>
+
 </ion-content>

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Register for CRS</ion-title>
+    <ion-title>Complete your CRS Registration</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,21 +15,36 @@
 
 <ion-content padding>
 
-  <form class="bd-example" #f="ngForm">
+  <form class="bd-example" #registrationForm="ngForm">
     <fieldset>
 
       <ion-list>
 
         <ion-item>
-          <ion-label stacked>Invitation Code</ion-label>
-          <ion-input type="text" id="invitation" name="invitation" ngModel ></ion-input>
+          <ion-label stacked>Name</ion-label>
+          <ion-input type="text" id="name" name="name" [(ngModel)]="user.name" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>E-Mail</ion-label>
+          <ion-input type="email" id="email" name="email" [(ngModel)]="user.email" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Password</ion-label>
+          <ion-input type="password" id="pw1" name="pw1" ngModel ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label stacked>Confirm Password</ion-label>
+          <ion-input type="password" id="pw2" name="pw2" ngModel ></ion-input>
         </ion-item>
 
       </ion-list>
 
-      <button ion-button icon-left (click)="validateInvitation(f)">
+      <button ion-button icon-left (click)="finishRegistration(registrationForm)">
         <ion-icon name="lock"></ion-icon>
-        Validate Invitation
+        Complete Registration
       </button>
 
     </fieldset>

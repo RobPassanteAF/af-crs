@@ -13,6 +13,9 @@ import {AngularFireModule} from "angularfire2";
 import {LoginPage} from "../pages/login/login";
 import {AngularFireAuth} from "angularfire2/auth";
 import {RegisterPage} from "../pages/register/register";
+import {AngularFireDatabase} from "angularfire2/database";
+import { LoginAndRegistrationProvider } from '../providers/login-and-registration/login-and-registration';
+import { MessagingProvider } from '../providers/messaging/messaging';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -49,7 +52,10 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     AngularFireAuth,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    AngularFireDatabase,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LoginAndRegistrationProvider,
+    MessagingProvider
   ]
 })
 export class AppModule {}
