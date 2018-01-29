@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 import {CRSUser} from "../../models/CRSUser";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the RegisterPage page.
@@ -30,7 +31,7 @@ export class RegisterPage {
   finishRegistration(form:NgForm) {
     if(form.value.pw1 === form.value.pw2){
       this.lrService.finalizeRegistration(form.value.pw1).subscribe((result) => {
-        console.log('REGISTRATION COMPLETE');
+        this.navCtrl.push(HomePage);
       }, err => {
         console.log('REGISTRATION ERROR');
       });
