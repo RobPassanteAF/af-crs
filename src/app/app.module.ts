@@ -17,6 +17,7 @@ import {RegisterPage} from "../pages/register/register";
 import {AngularFireDatabase} from "angularfire2/database";
 import { LoginAndRegistrationProvider } from '../providers/login-and-registration/login-and-registration';
 import { MessagingProvider } from '../providers/messaging/messaging';
+import { CubiclesProvider } from '../providers/cubicles/cubicles';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -58,7 +59,8 @@ export const firebaseConfig = {
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginAndRegistrationProvider,
-    MessagingProvider
+    MessagingProvider,
+    CubiclesProvider
   ]
 })
 export class AppModule {}
