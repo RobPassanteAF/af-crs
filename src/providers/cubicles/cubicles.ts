@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
+import {Observable} from "rxjs/Observable";
 
 /*
   Generated class for the CubiclesProvider provider.
@@ -16,11 +17,10 @@ export class CubiclesProvider {
   }
 
   getAllCubibles() {
-      this.afDatabase.database.ref().child('cubicles').once('value').then((snapshot) => {
-        let inv = snapshot.val();
-        if(inv){
-         console.log(inv); 
-        }
+    return Observable.create(observer => {
+          this.afDatabase.database.ref().child('cubicles').once('value').then((snapshot) => {
+            observer.next(snapshot.val()); 
+          });
       });
   }
 
