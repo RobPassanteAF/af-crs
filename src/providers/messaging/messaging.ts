@@ -14,7 +14,7 @@ export class MessagingProvider {
     console.log('Hello MessagingProvider Provider');
   }
 
-  toast(message,showCloseButton,closeButtonText=null){
+  toast(message,showCloseButton=false,closeButtonText=null){
     let toastConfig = {
       message: message,
       showCloseButton: showCloseButton,

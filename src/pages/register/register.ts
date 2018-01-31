@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import {MessagingProvider} from "../../providers/messaging/messaging";
+import {ProfilePage} from "../profile/profile";
 import {CRSUser} from "../../models/CRSUser";
-import {HomePage} from "../home/home";
 
 /**
  * Generated class for the RegisterPage page.
@@ -16,26 +17,34 @@ import {HomePage} from "../home/home";
   selector: 'page-register',
   templateUrl: 'register.html',
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit{
 
-  user:CRSUser;
+  user: CRSUser;
 
-  constructor(private lrService: LoginAndRegistrationProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.user = this.lrService.getUser();
+  constructor(private lrService: LoginAndRegistrationProvider, private messagingService: MessagingProvider, public navCtrl: NavController, public navParams: NavParams) {
+
+  }
+
+  ngOnInit (){
+    this.lrService.getUser().subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+
   }
 
   finishRegistration(form:NgForm) {
     if(form.value.pw1 === form.value.pw2){
-      this.lrService.finalizeRegistration(form.value.pw1).subscribe((result) => {
-        this.navCtrl.push(HomePage);
+      this.lrService.finalizeRegistration(form.value.pw1, form.value.name).subscribe((result) => {
+        this.navCtrl.push(ProfilePage);
       }, err => {
-        console.log('REGISTRATION ERROR');
+        this.messagingService.toast(err.message);
       });
     }
 
   }
+
+
 }

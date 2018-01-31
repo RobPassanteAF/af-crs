@@ -21,7 +21,31 @@ export class LoginAndRegistrationProvider {
   }
 
   getUser() {
-    return this.user;
+    return Observable.create(observer => {
+      if(this.user){
+        observer.next(this.user);
+      }else{
+        let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
+        this.afDatabase.database.ref().child(peopleURI).once('value').then((snapshot => {
+          let u = snapshot.val();
+          if(u){
+            this.user = u;
+            observer.next(this.user);
+          }else{
+            this.setUser();
+            observer.error();
+          }
+        }));
+      }
+    });
+  }
+
+  setUser (){
+    this.user = new CRSUser();
+    this.user.uid = this.afAuth.auth.currentUser.uid;
+    this.user.email = this.afAuth.auth.currentUser.email;
+    this.user.email = this.afAuth.auth.currentUser.email;
+    this.user.teams = [];
   }
 
   login(email,password) {
@@ -49,14 +73,28 @@ export class LoginAndRegistrationProvider {
     });
   }
 
-  finalizeRegistration(password){
+  finalizeRegistration(password, displayName){
     return Observable.create(observer => {
       this.afAuth.auth.createUserWithEmailAndPassword(this.user.email, password).then((newUser) => {
-        observer.next(true);
+        newUser.updateProfile({displayName:displayName}).then(
+          function(result){
+            observer.next(true);
+          }
+        );
       }).catch((error) => {
         this.messagingService.toast(error.message,true);
         observer.error();
       });
+    });
+  }
+
+  updateUser() {
+    return Observable.create(observer => {
+      this.afDatabase.database.ref('people/' + this.user.uid).set(this.user).then(
+        function (result) {
+          observer.next();
+        }
+      );
     });
   }
 }

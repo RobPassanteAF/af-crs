@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {RegisterPage} from "../register/register";
 import {NgForm} from "@angular/forms";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import {MessagingProvider} from "../../providers/messaging/messaging";
 
 /**
  * Generated class for the LoginPage page.
@@ -17,14 +18,14 @@ import {LoginAndRegistrationProvider} from "../../providers/login-and-registrati
 })
 export class LoginPage {
 
-  invitationCode:string = "fd875a4f-2679-427f-865b-0707a78ec2cc";
+  public invitationCode:string = "fd875a4f-2679-427f-865b-0707a78ec2cc";
 
-  constructor(private lrService: LoginAndRegistrationProvider, public navCtrl: NavController) {
+  constructor(private lrService: LoginAndRegistrationProvider, private messagingService:MessagingProvider, public navCtrl: NavController) {
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+
   }
 
   login(form: NgForm) {
@@ -36,7 +37,7 @@ export class LoginPage {
       console.log(invitation);
       this.navCtrl.push(RegisterPage);
     }, err => {
-      console.log(err);
+      this.messagingService.toast(err.message)
     });
   }
 

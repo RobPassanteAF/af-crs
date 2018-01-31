@@ -1,11 +1,17 @@
+import {CRSCubicle} from "./CRSCubicle";
+import {CRSTeam} from "./CRSTeam";
 /**
  * Created by robpassante on 1/26/18.
  */
-export class CRSUser{
+export class CRSUser {
   public invitationCode: string;
+  public uid: string;
   public name: string;
   public email: string;
-  public phone: string;
+  public cell: string;
+  public teams: Array<CRSTeam>;
+  public cubicle: CRSCubicle;
+  public validated: boolean = false;
 
   constructor(){}
 

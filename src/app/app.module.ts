@@ -18,6 +18,8 @@ import {AngularFireDatabase} from "angularfire2/database";
 import { LoginAndRegistrationProvider } from '../providers/login-and-registration/login-and-registration';
 import { MessagingProvider } from '../providers/messaging/messaging';
 import { CubiclesProvider } from '../providers/cubicles/cubicles';
+import {ProfilePage} from "../pages/profile/profile";
+import { TeamsProvider } from '../providers/teams/teams';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -35,7 +37,9 @@ export const firebaseConfig = {
     ListPage,
     LoginPage,
     RegisterPage,
-    ReservePage
+    ReservePage,
+    RegisterPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,8 @@ export const firebaseConfig = {
     LoginPage,
     RegisterPage,
     ReservePage,
+    RegisterPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
@@ -59,6 +65,8 @@ export const firebaseConfig = {
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginAndRegistrationProvider,
+    MessagingProvider,
+    TeamsProvider,
     MessagingProvider,
     CubiclesProvider
   ]
