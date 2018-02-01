@@ -51,8 +51,14 @@ export class ProfilePage implements OnInit{
     if(!this.user.teams){
       return false;
     }
-    let idx: number = this.user.teams.indexOf(team);
-    return (idx !== -1);
+
+    let found = false;
+    this.user.teams.forEach( (item) => {
+      if(item.code === team.code){
+        found = true;
+      }
+    });
+    return found;
   }
 
   updateProfile() {

@@ -76,7 +76,15 @@ export class LoginAndRegistrationProvider {
   login(email,password) {
     return Observable.create(observer => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
-        observer.next(user);
+        this.getUser().subscribe((user) => {
+          if(user.validated){
+            observer.next();
+          }else {
+            observer.error(AppSettings.AUTH_ERRORS.PROFILE_INCOMPLETE.code);
+          }
+        }, err => {
+          observer.error(AppSettings.AUTH_ERRORS.PROFILE_MISSING.code);
+        });
       }).catch((error) => {
         this.messagingService.toast(error.message,true);
         observer.error(error);
@@ -118,6 +126,7 @@ export class LoginAndRegistrationProvider {
 
   updateUser() {
     return Observable.create(observer => {
+      this.user.validated = true;
       this.afDatabase.database.ref('people/' + this.user.uid).set(this.user).then(
         function (result) {
           observer.next();

@@ -18,14 +18,15 @@ import {AppSettings} from "../providers/app-settings/app-settings";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public lrService: LoginAndRegistrationProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 
     this.lrService.init().subscribe( (user) => {
-
+      this.rootPage = HomePage;
+      this.initializeApp();
     }, (err) => {
       switch (err){
         case AppSettings.AUTH_ERRORS.LOGIN_REQUIRED.code:
@@ -38,9 +39,10 @@ export class MyApp {
           this.openPage(ProfilePage);
           break;
       }
+      //this.initializeApp();
     });
 
-    this.initializeApp();
+    //this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -65,6 +67,10 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page);
+    if(page.component){
+      this.nav.setRoot(page.component);
+    }else {
+      this.nav.setRoot(page);
+    }
   }
 }

@@ -6,6 +6,9 @@ export class CRSTeam{
   public code: string;
   public name: string;
 
-  constructor(){}
+  constructor(code:string,name:string){
+    this.code = code;
+    this.name = name;
+  }
 
 }

@@ -22,8 +22,8 @@ export class TeamsProvider {
       if(this.teams){
         observer.next(this.teams);
       }else{
-        this.afDatabase.database.ref().child('teams').once('value').then((snapshot) => {
-          this.teams = snapshot.val();
+        this.afDatabase.list<CRSTeam>('teams').valueChanges().subscribe((teams) => {
+          this.teams = teams;
           observer.next(this.teams);
         });
       }
