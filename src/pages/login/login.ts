@@ -18,7 +18,7 @@ import {MessagingProvider} from "../../providers/messaging/messaging";
 })
 export class LoginPage {
 
-  public invitationCode:string = "fd875a4f-2679-427f-865b-0707a78ec2cc";
+  public invitationCode:string;
 
   constructor(private lrService: LoginAndRegistrationProvider, private messagingService:MessagingProvider, public navCtrl: NavController) {
 

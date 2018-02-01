@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {TeamsProvider} from "../../providers/teams/teams";
 import {CRSTeam} from "../../models/CRSTeam";
-import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 import {Observable} from "rxjs/Observable";
 import {CRSUser} from "../../models/CRSUser";
-import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
+import {AppSettings} from "../../providers/app-settings/app-settings";
+import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 
 /**
  * Generated class for the ProfilePage page.
@@ -24,7 +24,7 @@ export class ProfilePage implements OnInit{
   user: CRSUser;
   teams: Observable<CRSTeam[]>;
 
-  constructor(private lrService: LoginAndRegistrationProvider, private teamsService: TeamsProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private lrService: LoginAndRegistrationProvider, private appSettings: AppSettings, private teamsService: TeamsProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -32,9 +32,7 @@ export class ProfilePage implements OnInit{
   }
 
   ngOnInit() {
-    this.lrService.getUser().subscribe((user) => {
-      this.user = user;
-    });
+    this.user = this.appSettings.getUser();
     this.teams = this.teamsService.loadTeams();
   }
 

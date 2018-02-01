@@ -4,6 +4,7 @@ import {AngularFireDatabase} from "angularfire2/database";
 import {MessagingProvider} from "../messaging/messaging";
 import {Observable} from "rxjs/Observable";
 import {CRSUser} from "../../models/CRSUser";
+import {AppSettings} from "../app-settings/app-settings";
 
 /*
   Generated class for the LoginAndRegistrationProvider provider.
@@ -16,8 +17,30 @@ export class LoginAndRegistrationProvider {
 
   user: CRSUser;
 
-  constructor(private afAuth:AngularFireAuth, private afDatabase: AngularFireDatabase, private messagingService: MessagingProvider) {
+  constructor(private afAuth:AngularFireAuth, private afDatabase: AngularFireDatabase, private messagingService: MessagingProvider, private appSettings: AppSettings) {
     console.log('Hello LoginAndRegistrationProvider Provider');
+  }
+
+  init(){
+    return Observable.create(observer => {
+      const unsubscribe = this.afAuth.auth.onAuthStateChanged( (user) => {
+        if (!user) {
+          observer.error(AppSettings.AUTH_ERRORS.LOGIN_REQUIRED.code);
+          unsubscribe();
+        } else {
+          this.getUser().subscribe((user) => {
+            if(user.validated){
+              observer.next();
+            }else {
+              observer.error(AppSettings.AUTH_ERRORS.PROFILE_INCOMPLETE.code);
+            }
+            unsubscribe();
+          }, err => {
+            observer.error(AppSettings.AUTH_ERRORS.PROFILE_MISSING.code);
+          });
+        }
+      });
+    });
   }
 
   getUser() {
@@ -30,6 +53,7 @@ export class LoginAndRegistrationProvider {
           let u = snapshot.val();
           if(u){
             this.user = u;
+            this.appSettings.setUser(this.user);
             observer.next(this.user);
           }else{
             this.setUser();
@@ -46,14 +70,18 @@ export class LoginAndRegistrationProvider {
     this.user.email = this.afAuth.auth.currentUser.email;
     this.user.email = this.afAuth.auth.currentUser.email;
     this.user.teams = [];
+    this.appSettings.setUser(this.user);
   }
 
   login(email,password) {
-    this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
-      console.log(user);
-    }).catch((error) => {
-      this.messagingService.toast(error.message,true);
-    });
+    return Observable.create(observer => {
+      this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
+        observer.next(user);
+      }).catch((error) => {
+        this.messagingService.toast(error.message,true);
+        observer.error(error);
+      });
+    };
   }
 
   checkInvitation(code){

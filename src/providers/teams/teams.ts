@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
-import {MessagingProvider} from "../messaging/messaging";
 import {Observable} from "rxjs/Observable";
 import {CRSTeam} from "../../models/CRSTeam";
 
@@ -14,7 +13,7 @@ import {CRSTeam} from "../../models/CRSTeam";
 export class TeamsProvider {
   teams: Observable<CRSTeam[]>;
 
-  constructor(private afDatabase: AngularFireDatabase, private messagingService: MessagingProvider) {
+  constructor(private afDatabase: AngularFireDatabase) {
     this.teams = this.afDatabase.list('teams').valueChanges();
   }
 
