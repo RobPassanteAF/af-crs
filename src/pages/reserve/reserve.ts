@@ -27,9 +27,14 @@ export class ReservePage {
 
   }
 
-  selectCubicle(id: number) {
+  reserveCubicle(id: number) {
     alert('Selected ' + id);
-  
+    this.cubiclesService.reserveCubicle(id);
+  }
+
+  releaseCubicle(id: number) {
+    alert('Selected ' + id);
+    this.cubiclesService.releaseCubicle(id);
   }
 
 }
