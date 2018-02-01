@@ -4,6 +4,8 @@ import {RegisterPage} from "../register/register";
 import {NgForm} from "@angular/forms";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 import {MessagingProvider} from "../../providers/messaging/messaging";
+import {TabsPage} from "../tabs/tabs";
+import {AppSettings} from "../../providers/app-settings/app-settings";
 
 /**
  * Generated class for the LoginPage page.
@@ -30,9 +32,9 @@ export class LoginPage {
 
   login(form: NgForm) {
     this.lrService.login(form.value.email, form.value.password).subscribe( (result) => {
-      console.log(result);
+      this.navCtrl.setRoot(TabsPage);
     }, (err) => {
-      console.log(err);
+      this.messagingService.toast(AppSettings.AUTH_ERRORS[err]);
     });
   }
 

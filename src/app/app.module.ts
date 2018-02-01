@@ -21,6 +21,7 @@ import { CubiclesProvider } from '../providers/cubicles/cubicles';
 import {ProfilePage} from "../pages/profile/profile";
 import { TeamsProvider } from '../providers/teams/teams';
 import { AppSettings } from '../providers/app-settings/app-settings';
+import {TabsPage} from "../pages/tabs/tabs";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -34,6 +35,7 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
+    TabsPage,
     HomePage,
     ListPage,
     LoginPage,
@@ -51,6 +53,7 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    TabsPage,
     HomePage,
     ListPage,
     LoginPage,

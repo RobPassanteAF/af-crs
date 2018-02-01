@@ -35,8 +35,9 @@ export class LoginAndRegistrationProvider {
               observer.error(AppSettings.AUTH_ERRORS.PROFILE_INCOMPLETE.code);
             }
             unsubscribe();
-          }, err => {
+          }, () => {
             observer.error(AppSettings.AUTH_ERRORS.PROFILE_MISSING.code);
+            unsubscribe();
           });
         }
       });
@@ -90,6 +91,10 @@ export class LoginAndRegistrationProvider {
         observer.error(error);
       });
     });
+  }
+
+  logout() {
+    return this.afAuth.auth.signOut();
   }
 
   checkInvitation(code){

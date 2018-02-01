@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {TeamsProvider} from "../../providers/teams/teams";
 import {CRSTeam} from "../../models/CRSTeam";
@@ -7,6 +7,8 @@ import {CRSUser} from "../../models/CRSUser";
 import {HomePage} from "../home/home";
 import {AppSettings} from "../../providers/app-settings/app-settings";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import {LoginPage} from "../login/login";
+import {Subscription} from "rxjs/Subscription";
 
 /**
  * Generated class for the ProfilePage page.
@@ -19,23 +21,25 @@ import {LoginAndRegistrationProvider} from "../../providers/login-and-registrati
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class ProfilePage implements OnInit{
+export class ProfilePage implements OnInit, OnDestroy{
 
   user: CRSUser;
+  teams_sub: Subscription;
   teams: Observable<CRSTeam[]>;
+
 
   constructor(private lrService: LoginAndRegistrationProvider, private appSettings: AppSettings, private teamsService: TeamsProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-
-  }
-
   ngOnInit() {
     this.user = this.appSettings.getUser();
-    this.teamsService.loadTeams().subscribe( (teams) => {
+    this.teams_sub = this.teamsService.loadTeams().subscribe( (teams) => {
       this.teams = teams;
     });
+  }
+
+  ngOnDestroy() {
+    this.teams_sub.unsubscribe();
   }
 
   onTeamChange(team: CRSTeam) {
@@ -64,6 +68,12 @@ export class ProfilePage implements OnInit{
   updateProfile() {
     this.lrService.updateUser().subscribe((user) => {
       this.navCtrl.push(HomePage);
+    });
+  }
+
+  logout() {
+    this.lrService.logout().then( (result) => {
+      this.navCtrl.setRoot(LoginPage);
     });
   }
 }

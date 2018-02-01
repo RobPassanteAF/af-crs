@@ -6,7 +6,7 @@
 /tmp
 /out-tsc
 www
-.sourcemaps
+/.sourcemaps
 
 # dependencies
 /node_modules
@@ -43,3 +43,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+.sourcemaps/0.js.map
+.sourcemaps/0.js.map
+.sourcemaps/0.js.map
+.sourcemaps/0.js.map

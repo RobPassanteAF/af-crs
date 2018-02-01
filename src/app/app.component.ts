@@ -2,14 +2,11 @@ import {Component, ViewChild} from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import {LoginPage} from "../pages/login/login";
-import {ReservePage} from '../pages/reserve/reserve';
 import {ProfilePage} from "../pages/profile/profile";
 import {LoginAndRegistrationProvider} from "../providers/login-and-registration/login-and-registration";
 import {AppSettings} from "../providers/app-settings/app-settings";
+import {TabsPage} from "../pages/tabs/tabs";
 
 
 @Component({
@@ -18,39 +15,26 @@ import {AppSettings} from "../providers/app-settings/app-settings";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any;
-
-  pages: Array<{title: string, component: any}>;
+  rootPage: any = TabsPage;
 
   constructor(public lrService: LoginAndRegistrationProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 
-    this.lrService.init().subscribe( (user) => {
-      this.rootPage = HomePage;
+    this.lrService.init().subscribe( () => {
+      this.rootPage = TabsPage;
       this.initializeApp();
     }, (err) => {
       switch (err){
         case AppSettings.AUTH_ERRORS.LOGIN_REQUIRED.code:
-          this.openPage(LoginPage);
+          this.setRoot(LoginPage);
           break;
         case AppSettings.AUTH_ERRORS.PROFILE_INCOMPLETE.code:
-          this.openPage(ProfilePage);
+          this.setRoot(ProfilePage);
           break;
         case AppSettings.AUTH_ERRORS.PROFILE_MISSING.code:
-          this.openPage(ProfilePage);
+          this.setRoot(ProfilePage);
           break;
       }
-      //this.initializeApp();
     });
-
-    //this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Reserve', component: ReservePage },
-      { title: 'My Profile', component: ProfilePage }
-    ];
 
   }
 
@@ -64,13 +48,11 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
+  setRoot(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if(page.component){
-      this.nav.setRoot(page.component);
-    }else {
-      this.nav.setRoot(page);
-    }
+    this.nav.setRoot(page).then( () => {
+
+    });
   }
 }

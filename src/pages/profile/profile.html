@@ -8,10 +8,15 @@
 
   <ion-navbar>
     <ion-title>User Profile</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="lock"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content padding>
   <form #profileForm="ngForm">
