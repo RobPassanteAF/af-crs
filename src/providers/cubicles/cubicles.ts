@@ -30,11 +30,11 @@ export class CubiclesProvider {
 
   reserveCubicle(id: number) {
     console.log("reserving cubicle " + id + " for " + this.lrService.user.name);
-    this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid});
+    this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.name});
   }
 
   releaseCubicle(id: number) {
-    this.afDatabase.database.ref('cubicles/'+id).update({person: null});
+    this.afDatabase.database.ref('cubicles/'+id).update({person: null, personName: null});
   }
 
 }

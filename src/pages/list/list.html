@@ -12,6 +12,9 @@
     <button ion-item *ngFor="let cubicle of cubicles; index as i">
       <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
       Cubicle {{i+1}} ({{cubicle.team}})
+      <div class="item-note" item-end>
+         {{cubicle.personName}}
+      </div>
     </button>
   </ion-list>
   <div *ngIf="selectedItem" padding>
