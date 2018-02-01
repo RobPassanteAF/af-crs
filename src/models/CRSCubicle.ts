@@ -6,6 +6,7 @@ export class CRSCubicle{
   public permanent: boolean;
   public team: string;
   public person: string;
+  public personName: string;
 
   constructor(){}
 
