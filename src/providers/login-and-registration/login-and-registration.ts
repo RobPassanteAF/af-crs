@@ -81,7 +81,7 @@ export class LoginAndRegistrationProvider {
         this.messagingService.toast(error.message,true);
         observer.error(error);
       });
-    };
+    });
   }
 
   checkInvitation(code){

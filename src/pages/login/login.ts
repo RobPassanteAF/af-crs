@@ -29,7 +29,11 @@ export class LoginPage {
   }
 
   login(form: NgForm) {
-    this.lrService.login(form.value.email, form.value.password);
+    this.lrService.login(form.value.email, form.value.password).subscribe( (result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   validateInvitation(form: NgForm) {

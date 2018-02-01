@@ -33,7 +33,9 @@ export class ProfilePage implements OnInit{
 
   ngOnInit() {
     this.user = this.appSettings.getUser();
-    this.teams = this.teamsService.loadTeams();
+    this.teamsService.loadTeams().subscribe( (teams) => {
+      this.teams = teams;
+    });
   }
 
   onTeamChange(team: CRSTeam) {

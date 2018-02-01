@@ -11,14 +11,23 @@ import {CRSTeam} from "../../models/CRSTeam";
 */
 @Injectable()
 export class TeamsProvider {
-  teams: Observable<CRSTeam[]>;
+  teams: CRSTeam[];
 
   constructor(private afDatabase: AngularFireDatabase) {
-    this.teams = this.afDatabase.list('teams').valueChanges();
+
   }
 
   loadTeams() {
-    return this.teams;
+    return Observable.create(observer => {
+      if(this.teams){
+        observer.next(this.teams);
+      }else{
+        this.afDatabase.database.ref().child('teams').once('value').then((snapshot) => {
+          this.teams = snapshot.val();
+          observer.next(this.teams);
+        });
+      }
+    });
   }
 
 }
