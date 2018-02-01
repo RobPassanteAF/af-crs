@@ -18,7 +18,7 @@ import {MessagingProvider} from "../../providers/messaging/messaging";
 })
 export class LoginPage {
 
-  public invitationCode:string = "fd875a4f-2679-427f-865b-0707a78ec2cc";
+  public invitationCode:string;
 
   constructor(private lrService: LoginAndRegistrationProvider, private messagingService:MessagingProvider, public navCtrl: NavController) {
 
@@ -29,7 +29,11 @@ export class LoginPage {
   }
 
   login(form: NgForm) {
-    this.lrService.login(form.value.email, form.value.password);
+    this.lrService.login(form.value.email, form.value.password).subscribe( (result) => {
+      console.log(result);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   validateInvitation(form: NgForm) {

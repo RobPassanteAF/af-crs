@@ -5,11 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import {AngularFireAuth} from "angularfire2/auth";
 import {LoginPage} from "../pages/login/login";
 import {ReservePage} from '../pages/reserve/reserve';
 import {ProfilePage} from "../pages/profile/profile";
 import {LoginAndRegistrationProvider} from "../providers/login-and-registration/login-and-registration";
+import {AppSettings} from "../providers/app-settings/app-settings";
 
 
 @Component({
@@ -22,18 +22,21 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(private afAuth: AngularFireAuth, public lrService: LoginAndRegistrationProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    const unsubscribe = this.afAuth.auth.onAuthStateChanged( user => {
-      if (!user) {
-        this.rootPage = LoginPage;
-        unsubscribe();
-      } else {
-        this.lrService.getUser().subscribe((user) => {
-          this.rootPage = HomePage;
-          unsubscribe();
-        }, err => {
-          this.nav.push(ProfilePage);
-        });
+  constructor(public lrService: LoginAndRegistrationProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+
+    this.lrService.init().subscribe( (user) => {
+
+    }, (err) => {
+      switch (err){
+        case AppSettings.AUTH_ERRORS.LOGIN_REQUIRED.code:
+          this.openPage(LoginPage);
+          break;
+        case AppSettings.AUTH_ERRORS.PROFILE_INCOMPLETE.code:
+          this.openPage(ProfilePage);
+          break;
+        case AppSettings.AUTH_ERRORS.PROFILE_MISSING.code:
+          this.openPage(ProfilePage);
+          break;
       }
     });
 
@@ -62,6 +65,6 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page);
   }
 }

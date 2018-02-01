@@ -20,6 +20,7 @@ import { MessagingProvider } from '../providers/messaging/messaging';
 import { CubiclesProvider } from '../providers/cubicles/cubicles';
 import {ProfilePage} from "../pages/profile/profile";
 import { TeamsProvider } from '../providers/teams/teams';
+import { AppSettings } from '../providers/app-settings/app-settings';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -68,7 +69,8 @@ export const firebaseConfig = {
     MessagingProvider,
     TeamsProvider,
     MessagingProvider,
-    CubiclesProvider
+    CubiclesProvider,
+    AppSettings
   ]
 })
 export class AppModule {}
