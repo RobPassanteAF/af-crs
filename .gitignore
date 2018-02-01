@@ -44,7 +44,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.sourcemaps/0.js.map
-.sourcemaps/0.js.map
-.sourcemaps/0.js.map
-.sourcemaps/0.js.map
+.sourcemaps/**.js.map
