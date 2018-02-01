@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import { CRSCubicle } from './../../models/CRSCubicle';
 
 /*
   Generated class for the CubiclesProvider provider.
@@ -12,6 +13,8 @@ import {LoginAndRegistrationProvider} from "../../providers/login-and-registrati
 @Injectable()
 export class CubiclesProvider {
 
+  cubicles: CRSCubicle[];
+
   constructor(private afDatabase: AngularFireDatabase, private lrService: LoginAndRegistrationProvider) {
     console.log('Hello CubiclesProvider Provider');
   }
@@ -19,7 +22,8 @@ export class CubiclesProvider {
   getAllCubibles() {
     return Observable.create(observer => {
           this.afDatabase.database.ref().child('cubicles').once('value').then((snapshot) => {
-            observer.next(snapshot.val()); 
+            this.cubicles = snapshot.val();
+            observer.next(this.cubicles ); 
           });
       });
   }
