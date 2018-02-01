@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
+import {AngularFireObject } from "angularfire2/database";
 
 /**
  * Generated class for the ReservePage page.
@@ -21,9 +22,9 @@ export class ReservePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservePage');
-    this.cubiclesService.getAllCubibles().subscribe(cubicles => {
-      console.log(cubicles);
-    });
+    // this.cubiclesService.getAllCubibles().subscribe(cubicles => {
+    //   console.log(cubicles);
+    // });
 
   }
 

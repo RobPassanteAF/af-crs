@@ -16,6 +16,10 @@
             </ion-avatar>
             <h2>      Cubicle {{i+1}}</h2>
             <p> {{cubicle.team}}</p>
+            <button *ngIf="!cubicle.person" ion-button color="primary"  item-end (click)="reserveCubicle(i)">
+                <ion-icon name="add"></ion-icon>
+                &nbsp; Reserve
+              </button>
           </ion-item>
           <ion-item-options side="left">
             <button ion-button color="primary" (click)="reserveCubicle(i)">

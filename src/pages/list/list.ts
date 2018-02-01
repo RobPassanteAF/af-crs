@@ -2,6 +2,7 @@ import { CRSCubicle } from './../../models/CRSCubicle';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
+import {AngularFireList  } from "angularfire2/database";
 
 @Component({
   selector: 'page-list',
@@ -30,9 +31,15 @@ export class ListPage {
       });
     }
 
+    this.getAllCubicles();
+  }
+
+  private getAllCubicles() {
+   // this.cubicles = this.cubiclesService.getAllCubibles();
     this.cubiclesService.getAllCubibles().subscribe(data => {
       this.cubicles = data;
     });
+
   }
 
   itemTapped(event, item) {
@@ -43,12 +50,12 @@ export class ListPage {
   }
 
   reserveCubicle(id: number) {
-    alert('Selected ' + id);
     this.cubiclesService.reserveCubicle(id);
+    this.getAllCubicles();  // refresh    TODO: this won't be needed by using Firebase realtime observable
   }
 
   releaseCubicle(id: number) {
-    alert('Selected ' + id);
     this.cubiclesService.releaseCubicle(id);
+    this.getAllCubicles();  // refresh  TODO: this won't be needed by using Firebase realtime observable
   }
 }
