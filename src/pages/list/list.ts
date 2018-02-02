@@ -12,8 +12,8 @@ export class ListPage {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
-  cubicles: CRSCubicle[];
-
+  // cubicles: CRSCubicle[];
+  cubicles: AngularFireList<CRSCubicle[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
@@ -35,11 +35,7 @@ export class ListPage {
   }
 
   private getAllCubicles() {
-   // this.cubicles = this.cubiclesService.getAllCubibles();
-    this.cubiclesService.getAllCubibles().subscribe(data => {
-      this.cubicles = data;
-    });
-
+   this.cubicles = this.cubiclesService.getAllCubibles();
   }
 
   itemTapped(event, item) {

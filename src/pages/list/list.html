@@ -9,7 +9,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item-sliding *ngFor="let cubicle of cubicles; index as i">
+        <ion-item-sliding *ngFor="let cubicle of cubicles | async; index as i">
           <ion-item >
             <ion-avatar item-start>
                 <ion-icon [name]="icons[i]"></ion-icon>

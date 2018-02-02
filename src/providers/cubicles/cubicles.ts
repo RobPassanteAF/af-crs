@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+import {AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 import {MessagingProvider} from "../../providers/messaging/messaging";
@@ -20,13 +20,8 @@ export class CubiclesProvider {
     console.log('Hello CubiclesProvider Provider');
   }
 
-  getAllCubibles() {
-    return Observable.create(observer => {
-          this.afDatabase.database.ref().child('cubicles').once('value').then((snapshot) => {
-            this.cubicles = snapshot.val();
-            observer.next(this.cubicles ); 
-          });
-      });
+  getAllCubibles() :AngularFireList<CRSCubicle[]> {
+    return this.afDatabase.list('/cubicles').valueChanges();
   }
 
   reserveCubicle(id: number) {
