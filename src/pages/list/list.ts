@@ -47,11 +47,9 @@ export class ListPage {
 
   reserveCubicle(id: number) {
     this.cubiclesService.reserveCubicle(id);
-    this.getAllCubicles();  // refresh    TODO: this won't be needed by using Firebase realtime observable
   }
 
   releaseCubicle(id: number) {
     this.cubiclesService.releaseCubicle(id);
-    this.getAllCubicles();  // refresh  TODO: this won't be needed by using Firebase realtime observable
   }
 }
