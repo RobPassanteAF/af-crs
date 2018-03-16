@@ -21,7 +21,8 @@ export class CubiclesProvider {
   }
 
   getAllCubibles() :Observable<CRSCubicle[]> {
-    return this.afDatabase.list<CRSCubicle>('/cubicles').valueChanges();
+    return this.afDatabase.list<CRSCubicle>('/cubicles').valueChanges();   
+    
   }
 
   reserveCubicle(id: number) {
