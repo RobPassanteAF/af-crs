@@ -17,7 +17,7 @@ export class ListPage {
   user: CRSUser;
   items: Array<{title: string, note: string, icon: string}>;
   // cubicles: CRSCubicle[];
-  cubicles: Observable<any[]>;
+  cubicles: Observable<CRSCubicle[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');

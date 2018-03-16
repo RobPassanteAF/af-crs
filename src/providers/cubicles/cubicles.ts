@@ -20,18 +20,22 @@ export class CubiclesProvider {
     console.log('Hello CubiclesProvider Provider');
   }
 
-  getAllCubibles() :Observable<any[]> {
-    return this.afDatabase.list('/cubicles').valueChanges();
+  getAllCubibles() :Observable<CRSCubicle[]> {
+    return this.afDatabase.list<CRSCubicle>('/cubicles').valueChanges();
   }
 
   reserveCubicle(id: number) {
     this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.name});
+    this.lrService.user.currentCubicle = id;    // TODO: this will work once firebase async is connected
     this.messagingService.toast("You are all set. We have secured your space!");
   }
 
   releaseCubicle(id: number) {
     this.afDatabase.database.ref('cubicles/'+id).update({person: null, personName: null});
+    this.lrService.user.currentCubicle = null;    // TODO: this will work once firebase async is connected
     this.messagingService.toast("Thank you for releasing this space");
   }
+
+
 
 }
