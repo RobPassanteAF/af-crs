@@ -20,7 +20,7 @@ export class CubiclesProvider {
     console.log('Hello CubiclesProvider Provider');
   }
 
-  getAllCubibles() :Observable<CRSCubicle[]> {
+  getAllCubibles() :Observable<any[]> {
     return this.afDatabase.list('/cubicles').valueChanges();
   }
 

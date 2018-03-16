@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
 import {AngularFireList  } from "angularfire2/database";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'page-list',
@@ -13,7 +14,7 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
   // cubicles: CRSCubicle[];
-  cubicles: AngularFireList<CRSCubicle[]>;
+  cubicles: Observable<any[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
