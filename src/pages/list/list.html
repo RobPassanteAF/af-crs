@@ -14,14 +14,19 @@
             <ion-avatar item-start>
                 <ion-icon [name]="icons[i]"></ion-icon>
             </ion-avatar>
-            <h2>      Cubicle {{i+1}}</h2>
+            <h2>      Cubicle {{i+1}} <span *ngIf="cubicle.personName"> - {{cubicle.personName}} </span> </h2>
             <p> {{cubicle.team}}</p>
             <button *ngIf="!cubicle.person" ion-button color="primary"  item-end (click)="reserveCubicle(i)">
                 <ion-icon name="add"></ion-icon>
                 &nbsp; Reserve
               </button>
+
+              <button *ngIf="cubicle.person == user.uid" ion-button color="primary"  item-end (click)="releaseCubicle(i)">
+                <ion-icon name="add"></ion-icon>
+                &nbsp; Release
+              </button>
           </ion-item>
-          <ion-item-options side="left">
+          <!-- <ion-item-options side="left">
             <button ion-button color="primary" (click)="reserveCubicle(i)">
               <ion-icon name="text"></ion-icon>
               Reserve
@@ -32,7 +37,7 @@
               <ion-icon name="mail"></ion-icon>
               Release
             </button>
-          </ion-item-options>
+          </ion-item-options> -->
         </ion-item-sliding>
       </ion-list>
 

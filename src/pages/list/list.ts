@@ -1,9 +1,11 @@
+import { CRSUser } from './../../models/CRSUser';
 import { CRSCubicle } from './../../models/CRSCubicle';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
 import {AngularFireList  } from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
+import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 
 @Component({
   selector: 'page-list',
@@ -12,12 +14,15 @@ import {Observable} from "rxjs/Observable";
 export class ListPage {
   selectedItem: any;
   icons: string[];
+  user: CRSUser;
   items: Array<{title: string, note: string, icon: string}>;
   // cubicles: CRSCubicle[];
   cubicles: Observable<any[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
+
+    this.user = this.lrService.user;
 
     // Let's populate this page with some filler content for funzies
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
