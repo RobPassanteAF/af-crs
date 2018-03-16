@@ -20,12 +20,11 @@ export class CubiclesProvider {
     console.log('Hello CubiclesProvider Provider');
   }
 
-  getAllCubibles() :AngularFireList<CRSCubicle[]> {
+  getAllCubibles() :Observable<CRSCubicle[]> {
     return this.afDatabase.list('/cubicles').valueChanges();
   }
 
   reserveCubicle(id: number) {
-    console.log("reserving cubicle " + id + " for " + this.lrService.user.name);
     this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.name});
     this.messagingService.toast("You are all set. We have secured your space!");
   }
