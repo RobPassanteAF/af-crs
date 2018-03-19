@@ -11,4 +11,8 @@ export class HomePage {
 
   }
 
+  selectLocation(location: string) {
+    alert("You are at " + location);
+  }
+
 }
