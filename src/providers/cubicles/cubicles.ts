@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import {AngularFireDatabase } from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 import {MessagingProvider} from "../../providers/messaging/messaging";
@@ -22,7 +22,7 @@ export class CubiclesProvider {
 
   getAllCubibles() :Observable<CRSCubicle[]> {
     return this.afDatabase.list<CRSCubicle>('/cubicles').valueChanges();   
-    
+
   }
 
   reserveCubicle(id: number) {

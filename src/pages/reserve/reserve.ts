@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
-import {AngularFireObject } from "angularfire2/database";
 
 /**
  * Generated class for the ReservePage page.
