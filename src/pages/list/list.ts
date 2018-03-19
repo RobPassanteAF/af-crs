@@ -3,7 +3,6 @@ import { CRSCubicle } from './../../models/CRSCubicle';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
-import {AngularFireList  } from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 
