@@ -1,8 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="scanQRCode()">
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-buttons>
+
     <ion-title>Reserve a cubicle</ion-title>
   </ion-navbar>
 </ion-header>

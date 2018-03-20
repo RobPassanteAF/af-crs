@@ -6,6 +6,8 @@ import { CubiclesProvider } from '../../providers/cubicles/cubicles';
 import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
 import { CRSCubicle } from './../../models/CRSCubicle';
 import { CRSUser } from './../../models/CRSUser';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+
 
 @Component({
   selector: 'page-list',
@@ -18,7 +20,8 @@ export class ListPage {
   items: Array<{title: string, note: string, icon: string}>;
   // cubicles: CRSCubicle[];
   cubicles: Observable<CRSCubicle[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, 
+    private lrService: LoginAndRegistrationProvider, private qrScanner: QRScanner ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -60,5 +63,53 @@ export class ListPage {
     this.cubiclesService.releaseCubicle(id);
     console.log(this.user);
   }
+
+  logDrag(item) {
+    let percent = item.getSlidingPercent();
+    if (percent > 0) {
+      // positive
+      console.log('right side');
+    } else {
+      // negative
+      console.log('left side');
+    }
+    if (Math.abs(percent) > 1) {
+      console.log('overscroll');
+    }
+  }
+
+  scanQRCode() {
+    this.qrScanner.prepare()
+  .then((status: QRScannerStatus) => {
+     if (status.authorized) {
+       // camera permission was granted
+
+
+       // start scanning
+       let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+         console.log('Scanned something', text);
+
+         this.qrScanner.hide(); // hide camera preview
+         scanSub.unsubscribe(); // stop scanning
+       });
+
+       // show camera preview
+       this.qrScanner.show();
+
+       // wait for user to scan something, then the observable callback will be called
+
+     } else if (status.denied) {
+       // camera permission was permanently denied
+       // you must use QRScanner.openSettings() method to guide the user to the settings page
+       // then they can grant the permission from there
+     } else {
+       // permission was denied, but not permanently. You can ask for permission again at a later time.
+     }
+  })
+  .catch((e: any) => console.log('Error is', e));
+
+  }
+
+  
 
 }
