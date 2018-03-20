@@ -1,10 +1,11 @@
-import { CRSUser } from './../../models/CRSUser';
-import { CRSCubicle } from './../../models/CRSCubicle';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {CubiclesProvider} from "../../providers/cubicles/cubicles";   
-import {Observable} from "rxjs/Observable";
-import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import { Observable } from 'rxjs/Observable';
+
+import { CubiclesProvider } from '../../providers/cubicles/cubicles';
+import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
+import { CRSCubicle } from './../../models/CRSCubicle';
+import { CRSUser } from './../../models/CRSUser';
 
 @Component({
   selector: 'page-list',
@@ -52,9 +53,12 @@ export class ListPage {
 
   reserveCubicle(id: number) {
     this.cubiclesService.reserveCubicle(id);
+    console.log(this.user);
   }
 
   releaseCubicle(id: number) {
     this.cubiclesService.releaseCubicle(id);
+    console.log(this.user);
   }
+
 }
