@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {MessagingProvider} from "../../providers/messaging/messaging";
 
 @Component({
   selector: 'page-home',
@@ -7,12 +8,12 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,  private messagingService: MessagingProvider) {
 
   }
 
   selectLocation(location: string) {
-    alert("You are at " + location);
+    this.messagingService.toast("You are at " + location);
   }
 
 }
