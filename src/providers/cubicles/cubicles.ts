@@ -27,8 +27,9 @@ export class CubiclesProvider {
   }
 
   reserveCubicle(id: number) {
+    console.log('reserving ' + id );
     this.releaseCubicle(this.lrService.user.cubicle);
-    
+
     this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.name});
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
     this.lrService.user.cubicle = id;    
@@ -37,6 +38,7 @@ export class CubiclesProvider {
   }
 
   releaseCubicle(id: number) {
+    console.log('releasing ' + id );
     this.afDatabase.database.ref('cubicles/'+id).update({person: null, personName: null});
     this.lrService.user.cubicle = null;    // TODO: this will work once firebase async is connected
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
