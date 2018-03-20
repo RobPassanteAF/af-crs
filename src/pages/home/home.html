@@ -9,17 +9,29 @@
 
 <ion-content>
   <!-- <legend>Where are you working today?</legend> -->
-  <ion-card (click)="selectLocation('Home')">
-    <img src="assets/imgs/home.jpeg"/>
-    <div class="card-title">Home</div>
-    <!-- <div class="card-subtitle">41 Listings</div> -->
-  </ion-card>
+  <ion-grid>
+    <ion-row> 
+      <ion-col col-12 col-lg> 
+          <ion-card (click)="selectLocation('Home')">
+              <img src="assets/imgs/home.jpeg"/>
+              <div class="card-title">Home</div>
+              <!-- <div class="card-subtitle">41 Listings</div> -->
+            </ion-card>
+      </ion-col>
 
-  <ion-card (click)="selectLocation('the Office')">
-    <img src="assets/imgs/office.jpeg"/>
-    <div class="card-title">Office</div>
-    <div class="card-subtitle">12 empty cubicles</div>
-  </ion-card>
+      <ion-col col-12 col-lg> 
+          <ion-card (click)="selectLocation('the Office')">
+              <img src="assets/imgs/office.jpeg"/>
+              <div class="card-title">Office</div>
+              <div class="card-subtitle">12 empty cubicles</div>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  
+
+ 
 
 
   <!-- <img src="assets/imgs/home.jpeg" alt="">
