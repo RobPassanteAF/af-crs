@@ -10,9 +10,8 @@ export class CRSUser {
   public email: string;
   public cell: string;
   public teams: Array<CRSTeam>;
-  public cubicle: CRSCubicle;
+  public cubicle: number;
   public validated: boolean = false;
-  public currentCubicle: number;
 
   constructor(){}
 
