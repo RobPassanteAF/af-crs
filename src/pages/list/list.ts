@@ -84,7 +84,7 @@ export class ListPage {
      if (status.authorized) {
        
       (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
-      (window.document.querySelector('.scroll-content') as HTMLElement).classList.add('hideScrollContent');
+      (window.document.querySelector('.listContent') as HTMLElement).classList.add('hideScrollContent');
 
        let scanSub = this.qrScanner.scan().subscribe((scannedCubicleId: string) => { 
         console.log('Scanned something', scannedCubicleId);
@@ -93,7 +93,7 @@ export class ListPage {
 
          this.qrScanner.hide(); // hide camera preview
          (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
-         (window.document.querySelector('.scroll-content') as HTMLElement).classList.remove('hideScrollContent');
+         (window.document.querySelector('.listContent') as HTMLElement).classList.remove('hideScrollContent');
          scanSub.unsubscribe(); // stop scanning
        });
 
