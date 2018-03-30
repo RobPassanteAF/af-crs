@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {CubiclesProvider} from "../../providers/cubicles/cubicles";
+import {MessagingProvider} from "../../providers/messaging/messaging";
+import {CRSCubicle} from "../../models/CRSCubicle";
+import {Observable} from "rxjs/Observable";
 
 /**
  * Generated class for the ReservePage page.
@@ -16,7 +19,12 @@ import {CubiclesProvider} from "../../providers/cubicles/cubicles";
 })
 export class ReservePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider) {
+  cubicles: Observable<CRSCubicle[]>;
+  hotelCubes = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, private messagingService: MessagingProvider) {
+    this.getAllCubicles();
+    this.hotelCubes.push({id:0,reserved:false});
   }
 
   ionViewDidLoad() {
@@ -27,14 +35,31 @@ export class ReservePage {
 
   }
 
-  reserveCubicle(id: number) {
-    alert('Selected ' + id);
-    this.cubiclesService.reserveCubicle(id);
+  getHotelCubeClass(id: number) {
+    let c = 'rect ';
+    if( this.hotelCubes[0].reserved ){
+      c = c + 'reserved';
+    }else {
+      c = c + 'open';
+    }
+    return c;
   }
 
-  releaseCubicle(id: number) {
-    alert('Selected ' + id);
-    this.cubiclesService.releaseCubicle(id);
+  private getAllCubicles() {
+    this.cubicles = this.cubiclesService.getAllCubibles();
+  }
+
+  toggleCube(id: number) {
+    let msg;
+    if(this.hotelCubes[id].reserved){
+      this.cubiclesService.releaseCubicle(id);
+      msg = 'Cubicle Reserved';
+    } else {
+      this.cubiclesService.reserveCubicle(id);
+      msg = 'Cubicle Released';
+    }
+    this.hotelCubes[id].reserved = !this.hotelCubes[id].reserved;
+    this.messagingService.toast(msg);
   }
 
 }

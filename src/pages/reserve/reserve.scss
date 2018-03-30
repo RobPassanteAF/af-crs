@@ -1,3 +1,42 @@
 page-reserve {
 
 }
+
+.rect {
+  stroke: #000000;
+  stroke-width: 1;
+  cursor: pointer;
+}
+
+.room {
+  fill: #a8a8a8;
+}
+
+.locked {
+  fill: #488aff;
+}
+
+.reserved {
+  fill: #e46312;
+}
+
+.open {
+  fill: #006B54;
+}
+
+.cubeText {
+  alignment-baseline: middle;
+  font-size: 12px;
+  font-weight: 700;
+  stroke: none;
+  fill: #FFFFFF;
+  cursor: pointer;
+}
+
+.roomText {
+  alignment-baseline: middle;
+  font-size: 12px;
+  font-weight: 700;
+  stroke: none;
+  fill: #000000;
+}
