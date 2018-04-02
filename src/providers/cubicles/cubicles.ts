@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {AngularFireDatabase } from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
-import {MessagingProvider} from "../../providers/messaging/messaging";
 import { CRSCubicle } from './../../models/CRSCubicle';
 import {AngularFireAuth} from "angularfire2/auth";
 
@@ -17,7 +16,7 @@ export class CubiclesProvider {
 
   cubicles: CRSCubicle[];
 
-  constructor(private afDatabase: AngularFireDatabase, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider, private messagingService: MessagingProvider ) {
+  constructor(private afDatabase: AngularFireDatabase, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider ) {
     console.log('Hello CubiclesProvider Provider');
   }
 
@@ -34,7 +33,6 @@ export class CubiclesProvider {
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
     this.lrService.user.cubicle = id;    
     this.afDatabase.database.ref().child(peopleURI).update({cubicle: this.lrService.user.cubicle});
-    this.messagingService.toast("You are all set. We have secured your space!");
   }
 
   releaseCubicle(id: number) {
@@ -43,7 +41,6 @@ export class CubiclesProvider {
     this.lrService.user.cubicle = null;    // TODO: this will work once firebase async is connected
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
     this.afDatabase.database.ref().child(peopleURI).update({cubicle: this.lrService.user.cubicle});
-    this.messagingService.toast("Thank you for releasing this space");
   }
 
 
