@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {MessagingProvider} from "../../providers/messaging/messaging";
+import { CubiclesProvider } from '../../providers/cubicles/cubicles';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'page-home',
@@ -8,8 +10,10 @@ import {MessagingProvider} from "../../providers/messaging/messaging";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController,  private messagingService: MessagingProvider) {
+  emptyCubicles: Observable<Number>;
 
+  constructor(public navCtrl: NavController,  private messagingService: MessagingProvider, private cubiclesService: CubiclesProvider) {
+    this.emptyCubicles = this.cubiclesService.getEmptyCubicles();
   }
 
   selectLocation(location: string) {
