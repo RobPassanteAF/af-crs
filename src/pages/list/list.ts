@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 
 import { CubiclesProvider } from '../../providers/cubicles/cubicles';
+import {MessagingProvider} from "../../providers/messaging/messaging";
 import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
 import { CRSCubicle } from './../../models/CRSCubicle';
 import { CRSUser } from './../../models/CRSUser';
@@ -21,7 +22,7 @@ export class ListPage {
   // cubicles: CRSCubicle[];
   cubicles: Observable<CRSCubicle[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, 
-    private lrService: LoginAndRegistrationProvider, private qrScanner: QRScanner ) {
+    private lrService: LoginAndRegistrationProvider, private qrScanner: QRScanner, private messagingService: MessagingProvider ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -56,11 +57,13 @@ export class ListPage {
 
   reserveCubicle(id: number) {
     this.cubiclesService.reserveCubicle(id);
+    this.messagingService.toast("You are all set. We have secured your space!");
     console.log(this.user);
   }
 
   releaseCubicle(id: number) {
     this.cubiclesService.releaseCubicle(id);
+    this.messagingService.toast("Thank you for releasing this space");
     console.log(this.user);
   }
 
