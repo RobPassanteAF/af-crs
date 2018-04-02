@@ -4,6 +4,7 @@ import {CubiclesProvider} from "../../providers/cubicles/cubicles";
 import {MessagingProvider} from "../../providers/messaging/messaging";
 import {CRSCubicle} from "../../models/CRSCubicle";
 import {Observable} from "rxjs/Observable";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 /**
  * Generated class for the ReservePage page.
@@ -22,7 +23,11 @@ export class ReservePage {
   cubicles: Observable<CRSCubicle[]>;
   hotelCubes = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, private messagingService: MessagingProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private cubiclesService: CubiclesProvider,
+              private messagingService: MessagingProvider,
+              private photoViewer: PhotoViewer) {
     this.getAllCubicles();
     this.hotelCubes.push({id:0,reserved:false});
   }
@@ -33,6 +38,10 @@ export class ReservePage {
     //   console.log(cubicles);
     // });
 
+  }
+
+  testPhoto() {
+    this.photoViewer.show('https://captbbrucato.files.wordpress.com/2011/08/dscf0585_stitch-besonhurst-2.jpg', 'Test image title', {share: false})
   }
 
   getHotelCubeClass(id: number) {

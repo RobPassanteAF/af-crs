@@ -23,6 +23,7 @@ import { TeamsProvider } from '../providers/teams/teams';
 import { AppSettings } from '../providers/app-settings/app-settings';
 import {TabsPage} from "../pages/tabs/tabs";
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -75,7 +76,8 @@ export const firebaseConfig = {
     MessagingProvider,
     CubiclesProvider,
     AppSettings,
-    QRScanner
+    QRScanner,
+    PhotoViewer
   ]
 })
 export class AppModule {}
