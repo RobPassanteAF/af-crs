@@ -14,10 +14,10 @@
 </ion-header>
 
 <ion-content>
-  <div style="overflow: scroll">
-    <svg width="4000" height="4000">
+  <div style="overflow: auto">
+    <svg width="855" height="720">
 
-      <!--the rect/text group-->
+      <!--BEGIN TRS WAR ROOM-->
       <g transform="translate(5,5)">
         <rect width="350" height="150" class="rect room"/>
         <svg width="350" height="150">
@@ -27,25 +27,31 @@
           </text>
         </svg>
       </g>
+      <!--END TRS WAR ROOM-->
+      <!--BEGIN SMALL CONFERENCE ROOM (THINK TANK)-->
       <g transform="translate(375,5)">
-        <rect width="200" height="100" class="rect room"/>
-        <svg width="200" height="100">
+        <rect width="100" height="100" class="rect room"/>
+        <svg width="100" height="100">
           <text x="50%" y="50%" text-anchor="middle" class="roomText">
             <tspan x="50%" y="50%">Conference</tspan>
             <tspan x="50%" y="65%">Room</tspan>
           </text>
         </svg>
       </g>
-      <g transform="translate(595,5)">
-        <rect width="250" height="100" class="rect room"/>
-        <svg width="200" height="100">
+      <!--END SMALL CONFERENCE ROOM (THINK TANK)-->
+      <!--BEGIN BREAK ROOM-->
+      <g transform="translate(475,5)">
+        <rect width="125" height="100" class="rect room"/>
+        <svg width="125" height="100">
           <text x="50%" y="50%" text-anchor="middle" class="roomText">
             <tspan x="50%" y="50%">Break</tspan>
             <tspan x="50%" y="65%">Room</tspan>
           </text>
         </svg>
       </g>
+      <!--END BREAK ROOM-->
 
+      <!--BEGIN CUBE 0 (ROSS COOKSEY)-->
       <g transform="translate(5,155)">
         <rect width="100" height="100" class="rect locked"/>
         <svg width="100" height="100">
@@ -55,6 +61,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 0 (ROSS COOKSEY)-->
+      <!--BEGIN CUBE 1 (SEAN RICKERT)-->
       <g transform="translate(5,255)">
         <rect width="100" height="100" class="rect locked"/>
         <svg width="100" height="100">
@@ -64,6 +72,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 1 (SEAN RICKERT)-->
+      <!--BEGIN CUBE 2 (TINA MCKENZIE)-->
       <g transform="translate(5,355)">
         <rect width="100" height="100" class="rect locked"/>
         <svg width="100" height="100">
@@ -73,6 +83,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 2 (TINA MCKENZIE)-->
+      <!--BEGIN CUBE 3 (HOTEL CUBE 1)-->
       <g transform="translate(5,455)" (click)="toggleCube(0)">
         <rect width="100" height="50" [attr.class]="getHotelCubeClass(0)"/>
         <svg width="100" height="50">
@@ -82,6 +94,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 3 (HOTEL CUBE 1)-->
+      <!--BEGIN CUBE 4 (DAVE ELLINGSON)-->
       <g transform="translate(5,505)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -91,6 +105,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 4 (DAVE ELLINGSON)-->
+      <!--BEGIN CUBE 5 (ARIEL HOWARD)-->
       <g transform="translate(5,555)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -100,6 +116,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 5 (ARIEL HOWARD)-->
+      <!--BEGIN CUBE 6 (VENKAT DANDA)-->
       <g transform="translate(5,605)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -109,6 +127,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 6 (VENKAT DANDA)-->
+      <!--BEGIN CUBE 7 (ED KORSHIN)-->
       <g transform="translate(5,655)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -118,7 +138,9 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 7 (ED KORSHIN)-->
 
+      <!--BEGIN CUBE 8 (HOTEL CUBE 2)-->
       <g transform="translate(150,200)">
         <rect width="100" height="50" class="rect open"/>
         <svg width="100" height="50">
@@ -128,6 +150,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 8 (HOTEL CUBE 2)-->
+      <!--BEGIN CUBE 9 (JACINDA WOODLEY)-->
       <g transform="translate(150,250)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -137,6 +161,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 9 (JACINDA WOODLEY)-->
+      <!--BEGIN CUBE 10 (HOTEL CUBE 3)-->
       <g transform="translate(150,300)">
         <rect width="100" height="50" class="rect open"/>
         <svg width="100" height="50">
@@ -146,6 +172,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 10 (HOTEL CUBE 3)-->
+      <!--BEGIN CUBE 11 (HOTEL CUBE 4)-->
       <g transform="translate(150,350)">
         <rect width="100" height="50" class="rect open"/>
         <svg width="100" height="50">
@@ -155,20 +183,63 @@
           </text>
         </svg>
       </g>
-      <g transform="translate(150,450)">
-        <rect width="200" height="100" class="rect locked"/>
-        <svg width="200" height="100">
+      <!--END CUBE 11 (HOTEL CUBE 4)-->
+      <!--BEGIN CUBE 12 (BILL PFEIFFER)-->
+      <g transform="translate(150,430)">
+        <rect width="200" height="75" class="rect locked"/>
+        <svg width="200" height="75">
           <text x="50%" y="50%" text-anchor="middle" class="cubeText">
             <tspan x="50%" y="50%">Bill</tspan>
             <tspan x="50%" y="75%">Pfeiffer</tspan>
           </text>
         </svg>
       </g>
-
-
-
-
-
+      <!--END CUBE 12 (BILL PFEIFFER)-->
+      <!--BEGIN CUBE 13 (TERRY DEPTULSKI)-->
+      <g transform="translate(150,505)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Terry</tspan>
+            <tspan x="50%" y="75%">Deptulski</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 13 (TERRY DEPTULSKI)-->
+      <!--BEGIN CUBE 14 (JEREMY NAYLOR)-->
+      <g transform="translate(150,555)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Jeremy</tspan>
+            <tspan x="50%" y="75%">Naylor</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 14 (JEREMY NAYLOR)-->
+      <!--BEGIN CUBE 15 (SREEKANTH REDDY)-->
+      <g transform="translate(150,605)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Sreekanth</tspan>
+            <tspan x="50%" y="75%">Reddy</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 15 (SREEKANTH REDDY)-->
+      <!--BEGIN CUBE 16 (ELLEN MOSER)-->
+      <g transform="translate(150,655)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Ellen</tspan>
+            <tspan x="50%" y="75%">Moser</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 16 (ELLEN MOSER)-->
+      <!--BEGIN CUBE 17 (HOTEL CUBE 5)-->
       <g transform="translate(250,200)">
         <rect width="100" height="50" class="rect open"/>
         <svg width="100" height="50">
@@ -178,6 +249,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 17 (HOTEL CUBE 5)-->
+      <!--BEGIN CUBE 18 (BRETT BRISKY)-->
       <g transform="translate(250,250)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -187,6 +260,8 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 18 (BRETT BRISKY)-->
+      <!--BEGIN CUBE 19 (KIRAN MUKTHAPURAM)-->
       <g transform="translate(250,300)">
         <rect width="100" height="50" class="rect locked"/>
         <svg width="100" height="50">
@@ -196,15 +271,162 @@
           </text>
         </svg>
       </g>
+      <!--END CUBE 19 (KIRAN MUKTHAPURAM)-->
+      <!--BEGIN CUBE 20 (HOTEL CUBE 6)-->
       <g transform="translate(250,350)">
         <rect width="100" height="50" class="rect open"/>
         <svg width="100" height="50">
           <text x="50%" y="50%" text-anchor="middle" class="cubeText">
             <tspan x="50%" y="50%">Hotel Cube</tspan>
-            <tspan x="50%" y="75%">#5</tspan>
+            <tspan x="50%" y="75%">#6</tspan>
           </text>
         </svg>
       </g>
+      <!--END CUBE 20 (HOTEL CUBE 6)-->
+      <!--BEGIN CUBE 21 (HOTEL CUBE 7)-->
+      <g transform="translate(250,505)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#7</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 21 (HOTEL CUBE 7)-->
+      <!--BEGIN CUBE 22 (HOTEL CUBE 8)-->
+      <g transform="translate(250,555)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#8</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 22 (HOTEL CUBE 8)-->
+      <!--BEGIN CUBE 23 (HOTEL CUBE 9)-->
+      <g transform="translate(250,605)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#9</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 23 (HOTEL CUBE 9)-->
+      <!--BEGIN CUBE 24 (HOTEL CUBE 10)-->
+      <g transform="translate(250,655)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#10</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 24 (HOTEL CUBE 10)-->
+
+      <!--BEGIN CUBE 25 (KALU NNANNA)-->
+      <g transform="translate(400,150)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Kalu</tspan>
+            <tspan x="50%" y="75%">Nnanna</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 25 (KALU NNANNA)-->
+      <!--BEGIN CUBE 26 (HOTEL CUBE 11)-->
+      <g transform="translate(400,200)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#11</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 26 (HOTEL CUBE 11)-->
+      <!--BEGIN CUBE 27 (BOB KOLLASCH)-->
+      <g transform="translate(400,250)">
+        <rect width="100" height="75" class="rect locked"/>
+        <svg width="100" height="75">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Bob</tspan>
+            <tspan x="50%" y="70%">Kollasch</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 27 (BOB KOLLASCH)-->
+      <!--BEGIN CUBE 28 (JOHN ALCHIN)-->
+      <g transform="translate(400,325)">
+        <rect width="100" height="75" class="rect locked"/>
+        <svg width="100" height="75">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">John</tspan>
+            <tspan x="50%" y="70%">Alchin</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 28 (JOHN ALCHIN)-->
+      <!--BEGIN CUBE 29 (BRYAN SCHNEIDER)-->
+      <g transform="translate(400,455)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Bryan</tspan>
+            <tspan x="50%" y="75%">Schneider</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 29 (BRYAN SCHNEIDER)-->
+      <!--BEGIN CUBE 30 (PAUL MARKS)-->
+      <g transform="translate(400,505)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Paul</tspan>
+            <tspan x="50%" y="75%">Marks</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 30 (PAUL MARKS)-->
+      <!--BEGIN CUBE 31 (RAJESH BASAVA)-->
+      <g transform="translate(400,555)">
+        <rect width="100" height="50" class="rect locked"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Rajesh</tspan>
+            <tspan x="50%" y="75%">Basava</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 31 (RAJESH BASAVA)-->
+      <!--BEGIN CUBE 32 (HOTEL CUBE 12)-->
+      <g transform="translate(400,605)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#12</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 32 (HOTEL CUBE 12)-->
+      <!--BEGIN CUBE 33 (HOTEL CUBE 13)-->
+      <g transform="translate(400,655)">
+        <rect width="100" height="50" class="rect open"/>
+        <svg width="100" height="50">
+          <text x="50%" y="50%" text-anchor="middle" class="cubeText">
+            <tspan x="50%" y="50%">Hotel Cube</tspan>
+            <tspan x="50%" y="75%">#13</tspan>
+          </text>
+        </svg>
+      </g>
+      <!--END CUBE 33 (HOTEL CUBE 13)-->
     </svg>
   </div>
 </ion-content>
