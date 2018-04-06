@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-
-import { CubiclesProvider } from '../../providers/cubicles/cubicles';
+import {Component} from "@angular/core";
+import {NavController, NavParams} from "ionic-angular";
+import {CubiclesProvider} from "../../providers/cubicles/cubicles";
 import {MessagingProvider} from "../../providers/messaging/messaging";
-import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
-import { CRSCubicle } from './../../models/CRSCubicle';
-import { CRSUser } from './../../models/CRSUser';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
+import {CRSCubicle} from "./../../models/CRSCubicle";
+import {CRSUser} from "./../../models/CRSUser";
+import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -21,14 +20,13 @@ export class ListPage {
   items: Array<{title: string, note: string, icon: string}>;
   // cubicles: CRSCubicle[];
   cubicles: Observable<CRSCubicle[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private cubiclesService: CubiclesProvider,
     private lrService: LoginAndRegistrationProvider, private qrScanner: QRScanner, private messagingService: MessagingProvider ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
     this.user = this.lrService.user;
 
-    // Let's populate this page with some filler content for funzies
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     'american-football', 'boat', 'bluetooth', 'build'];
 
@@ -46,13 +44,6 @@ export class ListPage {
 
   private getAllCubicles() {
    this.cubicles = this.cubiclesService.getAllCubibles();
-  }
-
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
   }
 
   reserveCubicle(id: number) {
@@ -85,13 +76,13 @@ export class ListPage {
     this.qrScanner.prepare()
   .then((status: QRScannerStatus) => {
      if (status.authorized) {
-       
+
       (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
       (window.document.querySelector('.listContent') as HTMLElement).classList.add('hideScrollContent');
 
-       let scanSub = this.qrScanner.scan().subscribe((scannedCubicleId: string) => { 
+       let scanSub = this.qrScanner.scan().subscribe((scannedCubicleId: string) => {
         console.log('Scanned something', scannedCubicleId);
-        
+
          this.reserveCubicle(Number(scannedCubicleId));
 
          this.qrScanner.hide(); // hide camera preview
@@ -113,6 +104,6 @@ export class ListPage {
 
   }
 
-  
+
 
 }
