@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomePage {
 
-  emptyCubicles: Observable<Number>;
+  emptyCubicles: Observable<number>;
 
   constructor(public navCtrl: NavController,  private messagingService: MessagingProvider, private cubiclesService: CubiclesProvider) {
     this.emptyCubicles = this.cubiclesService.getEmptyCubicles();
