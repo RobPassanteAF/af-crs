@@ -13,8 +13,6 @@ import {AngularFireAuth} from "angularfire2/auth";
 */
 @Injectable()
 export class CubiclesProvider {
-
-  cubicles: CRSCubicle[];
   emptyCubicles: number;
 
   constructor(private afDatabase: AngularFireDatabase, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider ) {
@@ -22,45 +20,39 @@ export class CubiclesProvider {
   }
 
   getAllCubibles() :Observable<CRSCubicle[]> {
-    return this.afDatabase.list<CRSCubicle>('/cubicles').valueChanges();   
+    return this.afDatabase.list<CRSCubicle>('/cubicles').valueChanges();
   }
 
   getEmptyCubicles() :Observable<number> {
-    return this.afDatabase.object<number>('/emptyCubicles').valueChanges();   
+    return this.afDatabase.object<number>('/emptyCubicles').valueChanges();
   }
 
   reserveCubicle(id: number) {
     console.log('reserving ' + id );
-    if(this.lrService.user.cubicle) {
-      this.afDatabase.database.ref('/').update({emptyCubicles:this.emptyCubicles-1});
+    let releasing= false;
+    if(this.lrService.user.cubicle == null ) {
+      console.log("not null");
+      this.afDatabase.database.ref('/').update({emptyCubicles:this.emptyCubicles-1});   // not swapping, so one less cubicle
     }
-    
-    this.releaseCubicle(this.lrService.user.cubicle, false);
+
+    this.releaseCubicle(this.lrService.user.cubicle, releasing);
 
     this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.name});
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
-    this.lrService.user.cubicle = id;    
+    this.lrService.user.cubicle = id;
     this.afDatabase.database.ref().child(peopleURI).update({cubicle: this.lrService.user.cubicle});
-    
+
   }
 
   releaseCubicle(id: number, releasing = true ) {
     if(releasing) {
-      this.afDatabase.database.ref('/').update({emptyCubicles:this.emptyCubicles+1});
+      this.afDatabase.database.ref('/').update({emptyCubicles:this.emptyCubicles+1});   // actually releasing the cubicle so one more empty cubicle
     }
-    
+
     console.log('releasing ' + id );
     this.afDatabase.database.ref('cubicles/'+id).update({person: null, personName: null});
-    // this.refreshEmptyCubicles();
     this.lrService.user.cubicle = null;    // TODO: this will work once firebase async is connected
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
     this.afDatabase.database.ref().child(peopleURI).update({cubicle: this.lrService.user.cubicle});
   }
-
-  private refreshEmptyCubicles() {
-    
-  }
-
-
-
 }
