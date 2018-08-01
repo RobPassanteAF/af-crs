@@ -37,7 +37,8 @@ export class RegisterPage implements OnInit{
 
   finishRegistration(form:NgForm) {
     if(form.value.pw1 === form.value.pw2){
-      this.lrService.finalizeRegistration(form.value.pw1, form.value.name).subscribe((result) => {
+      const fullName = form.value.firstName + " " + form.value.lastName
+      this.lrService.finalizeRegistration(form.value.pw1, fullName).subscribe((result) => {
         this.navCtrl.push(ProfilePage);
       }, err => {
         this.messagingService.toast(err.message);

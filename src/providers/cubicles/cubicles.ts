@@ -16,7 +16,10 @@ export class CubiclesProvider {
   emptyCubicles: number;
 
   constructor(private afDatabase: AngularFireDatabase, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider ) {
-    this.getEmptyCubicles().subscribe(val => this.emptyCubicles = val);
+    this.getEmptyCubicles().subscribe( (val) => {
+      this.emptyCubicles = val}, (error) => {
+        console.log(error);
+      });
   }
 
   getAllCubibles() :Observable<CRSCubicle[]> {
@@ -27,7 +30,7 @@ export class CubiclesProvider {
     return this.afDatabase.object<number>('/emptyCubicles').valueChanges();
   }
 
-  reserveCubicle(id: number) {
+  reserveCubicle(id: string) {
     console.log('reserving ' + id );
     let releasing= false;
     if(this.lrService.user.cubicle == null ) {
@@ -37,14 +40,14 @@ export class CubiclesProvider {
 
     this.releaseCubicle(this.lrService.user.cubicle, releasing);
 
-    this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.name});
+    this.afDatabase.database.ref('cubicles/'+id).update({person: this.lrService.user.uid, personName: this.lrService.user.fullName});
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
     this.lrService.user.cubicle = id;
     this.afDatabase.database.ref().child(peopleURI).update({cubicle: this.lrService.user.cubicle});
 
   }
 
-  releaseCubicle(id: number, releasing = true ) {
+  releaseCubicle(id: string, releasing = true ) {
     if(releasing) {
       this.afDatabase.database.ref('/').update({emptyCubicles:this.emptyCubicles+1});   // actually releasing the cubicle so one more empty cubicle
     }

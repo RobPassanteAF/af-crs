@@ -1,0 +1,459 @@
+[
+  {
+    "cubeId": "F3-R-1",
+    "permanent" : true,
+    "width" : 351,
+    "height" : 150,
+    "xPosition" : 5,
+    "yPosition" : 5,
+    "cubeText" : [
+      {
+        "xPos" : 50,
+        "yPos" : 50,
+        "val" : "TRS Agile"
+      },
+      {
+        "xPos" : 50,
+        "yPos" : 60,
+        "val" : "Team Room"
+      }
+    ]
+  },
+  {
+    "cubeId": "F3-R-2",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 100,
+    "xPosition" : 375,
+    "yPosition" : 5,
+    "cubeText" : [
+      {
+        "xPos" : 50,
+        "yPos" : 50,
+        "val" : "Conference"
+      },
+      {
+        "xPos" : 50,
+        "yPos" : 65,
+        "val" : "Room"
+      }
+    ]
+  },
+  {
+    "cubeId": "F3-R-3",
+    "permanent" : true,
+    "width" : 125,
+    "height" : 100,
+    "xPosition" : 475,
+    "yPosition" : 5,
+    "cubeText" : [
+      {
+        "xPos" : 50,
+        "yPos" : 50,
+        "val" : "Break"
+      },
+      {
+        "xPos" : 50,
+        "yPos" : 65,
+        "val" : "Room"
+      }
+    ]
+  },
+  {
+    "cubeId": "F3-C-1",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 100,
+    "xPosition" : 5,
+    "yPosition" : 155
+  },
+  {
+    "cubeId": "F3-C-2",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 100,
+    "xPosition" : 5,
+    "yPosition" : 255
+  },
+  {
+    "cubeId": "F3-C-3",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 100,
+    "xPosition" : 5,
+    "yPosition" : 355
+  },
+  {
+    "cubeId": "F3-C-4",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 5,
+    "yPosition" : 455
+  },
+  {
+    "cubeId": "F3-C-5",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 5,
+    "yPosition" : 505
+  },
+  {
+    "cubeId": "F3-C-6",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 5,
+    "yPosition" : 555
+  },
+  {
+    "cubeId": "F3-C-7",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 5,
+    "yPosition" : 605,
+    "person" :  null
+  },
+  {
+    "cubeId": "F3-C-8",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 5,
+    "yPosition" : 655
+  },
+  {
+    "cubeId": "F3-C-9",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 200
+  },
+  {
+    "cubeId": "F3-C-10",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 250
+  },
+  {
+    "cubeId": "F3-C-11",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 300
+  },
+  {
+    "cubeId": "F3-C-12",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 350
+  },
+  {
+    "cubeId": "F3-C-13",
+    "permanent" : true,
+    "width" : 200,
+    "height" : 75,
+    "xPosition" : 150,
+    "yPosition" : 430
+  },
+  {
+    "cubeId": "F3-C-4",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 505
+  },
+  {
+    "cubeId": "F3-C-15",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 555
+  },
+  {
+    "cubeId": "F3-C-16",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 605
+  },
+  {
+    "cubeId": "F3-C-17",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 150,
+    "yPosition" : 655
+  },
+  {
+    "cubeId": "F3-C-18",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 200
+  },
+  {
+    "cubeId": "F3-C-19",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 250
+  },
+  {
+    "cubeId": "F3-C-20",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 300
+  },
+  {
+    "cubeId": "F3-C-21",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 350
+  },
+  {
+    "cubeId": "F3-C-22",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 505
+  },
+  {
+    "cubeId": "F3-C-23",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 555
+  },
+  {
+    "cubeId": "F3-C-24",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 605
+  },
+  {
+    "cubeId": "F3-C-25",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 250,
+    "yPosition" : 655
+  },
+  {
+    "cubeId": "F3-C-26",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 150
+  },
+  {
+    "cubeId": "F3-C-27",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 200
+  },
+  {
+    "cubeId": "F3-C-28",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 75,
+    "xPosition" : 400,
+    "yPosition" : 250
+  },
+  {
+    "cubeId": "F3-C-29",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 75,
+    "xPosition" : 400,
+    "yPosition" : 325
+  },
+  {
+    "cubeId": "F3-C-30",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 455
+  },
+  {
+    "cubeId": "F3-C-31",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 505
+  },
+  {
+    "cubeId": "F3-C-32",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 555
+  },
+  {
+    "cubeId": "F3-C-33",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 605
+  },
+  {
+    "cubeId": "F3-C-34",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 400,
+    "yPosition" : 655
+  },
+  {
+    "cubeId": "F3-C-35",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 150
+  },
+  {
+    "cubeId": "F3-C-36",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 200
+  },
+  {
+    "cubeId": "F3-C-37",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 250
+  },
+  {
+    "cubeId": "F3-C-38",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 300
+  },
+  {
+    "cubeId": "F3-C-39",
+    "permanent" : false,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 455
+  },
+  {
+    "cubeId": "F3-C-40",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 505
+  },
+  {
+    "cubeId": "F3-C-41",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 555
+  },
+  {
+    "cubeId": "F3-C-42",
+    "permanent" : true,
+    "width" : 100,
+    "height" : 50,
+    "xPosition" : 500,
+    "yPosition" : 605
+  },
+  {
+    "cubeId": "F3-R-4",
+    "permanent" : true,
+    "width" : 245,
+    "height" : 150,
+    "xPosition" : 5,
+    "yPosition" : 705,
+    "cubeText" : [
+      {
+        "xPos" : 50,
+        "yPos" : 50,
+        "val" : "Conference Room & "
+      },
+      {
+        "xPos" : 50,
+        "yPos" : 60,
+        "val" : "E-Sol/M-Sol Agile Team Room"
+      }
+    ]
+  },
+  {
+    "cubeId": "F3-R-5",
+    "permanent" : true,
+    "width" : 150,
+    "height" : 100,
+    "xPosition" : 250,
+    "yPosition" : 755,
+    "cubeText" : [
+      {
+        "xPos" : 50,
+        "yPos" : 50,
+        "val" : "Conference"
+      },
+      {
+        "xPos" : 50,
+        "yPos" : 65,
+        "val" : "Room"
+      }
+    ]
+  },
+  {
+    "cubeId": "F3-R-6",
+    "permanent" : true,
+    "width" : 200,
+    "height" : 100,
+    "xPosition" : 400,
+    "yPosition" : 755,
+    "cubeText" : [
+      {
+        "xPos" : 50,
+        "yPos" : 50,
+        "val" : "Conference Room & "
+      },
+      {
+        "xPos" : 50,
+        "yPos" : 65,
+        "val" : "BI Agile Team Room"
+      }
+    ]
+  }
+]

@@ -4,26 +4,26 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import {ReservePage} from '../pages/reserve/reserve';
+import { ReservePage } from '../pages/reserve/reserve';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {FormsModule} from "@angular/forms";
-import {AngularFireModule} from "angularfire2";
-import {LoginPage} from "../pages/login/login";
-import {AngularFireAuth} from "angularfire2/auth";
-import {RegisterPage} from "../pages/register/register";
-import {AngularFireDatabase} from "angularfire2/database";
+import { FormsModule } from "@angular/forms";
+import { AngularFireModule } from "angularfire2";
+import { LoginPage } from "../pages/login/login";
+import { AngularFireAuth } from "angularfire2/auth";
+import { RegisterPage } from "../pages/register/register";
+import { AngularFireDatabase } from "angularfire2/database";
 import { LoginAndRegistrationProvider } from '../providers/login-and-registration/login-and-registration';
 import { MessagingProvider } from '../providers/messaging/messaging';
 import { CubiclesProvider } from '../providers/cubicles/cubicles';
-import {ProfilePage} from "../pages/profile/profile";
+import { ProfilePage } from "../pages/profile/profile";
 import { TeamsProvider } from '../providers/teams/teams';
 import { AppSettings } from '../providers/app-settings/app-settings';
-import {TabsPage} from "../pages/tabs/tabs";
+import { TabsPage } from "../pages/tabs/tabs";
 import { QRScanner } from '@ionic-native/qr-scanner';
-import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { CubeSvg } from "../shared/cube-svg/cube-svg";
+import { HideReservedCubesPipe } from '../pipes/hide-reserved-cubes/hide-reserved-cubes';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -39,12 +39,13 @@ export const firebaseConfig = {
     MyApp,
     TabsPage,
     HomePage,
-    ListPage,
     LoginPage,
     RegisterPage,
     ReservePage,
     RegisterPage,
-    ProfilePage
+    ProfilePage,
+    CubeSvg,
+    HideReservedCubesPipe
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,6 @@ export const firebaseConfig = {
     MyApp,
     TabsPage,
     HomePage,
-    ListPage,
     LoginPage,
     RegisterPage,
     ReservePage,
@@ -76,8 +76,7 @@ export const firebaseConfig = {
     MessagingProvider,
     CubiclesProvider,
     AppSettings,
-    QRScanner,
-    PhotoViewer
+    QRScanner
   ]
 })
 export class AppModule {}

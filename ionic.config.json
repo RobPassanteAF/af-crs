@@ -1,8 +1,8 @@
 {
   "name": "af-crs",
-  "app_id": "829b35e9",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "829b35e9"
 }

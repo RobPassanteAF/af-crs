@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {TeamsProvider} from "../../providers/teams/teams";
-import {CRSTeam} from "../../models/CRSTeam";
-import {Observable} from "rxjs/Observable";
-import {CRSUser} from "../../models/CRSUser";
-import {HomePage} from "../home/home";
-import {AppSettings} from "../../providers/app-settings/app-settings";
-import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
-import {LoginPage} from "../login/login";
-import {Subscription} from "rxjs/Subscription";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import { CRSTeam } from "../../models/CRSTeam";
+import { CRSUser } from "../../models/CRSUser";
+import { AppSettings } from "../../providers/app-settings/app-settings";
+import { LoginAndRegistrationProvider } from "../../providers/login-and-registration/login-and-registration";
+import { TeamsProvider } from "../../providers/teams/teams";
+import { HomePage } from "../home/home";
+import { LoginPage } from "../login/login";
 
 /**
  * Generated class for the ProfilePage page.
@@ -43,11 +43,18 @@ export class ProfilePage implements OnInit, OnDestroy{
   }
 
   onTeamChange(team: CRSTeam) {
-    let idx: number = this.user.teams.indexOf(team);
-    if(idx === -1){
-      this.user.teams.push(team);
+    let found: boolean;
+    if ( this.user.teams ){
+      found = ( this.user.teams[team.code] !== undefined );
+    }else{
+      this.user.teams = {};
+      found = false;
+    }
+
+    if(!found){
+      this.user.teams[team.code] = team.name;
     }else {
-      this.user.teams.splice(idx,1);
+      delete this.user.teams[team.code];
     }
   }
 
@@ -56,12 +63,7 @@ export class ProfilePage implements OnInit, OnDestroy{
       return false;
     }
 
-    let found = false;
-    this.user.teams.forEach( (item) => {
-      if(item.code === team.code){
-        found = true;
-      }
-    });
+    const found = ( this.user.teams[team.code] !== undefined );
     return found;
   }
 

@@ -16,6 +16,7 @@ import {AppSettings} from "../app-settings/app-settings";
 export class LoginAndRegistrationProvider {
 
   user: CRSUser;
+  allUserList: Object = {};
 
   constructor(private afAuth:AngularFireAuth, private afDatabase: AngularFireDatabase, private messagingService: MessagingProvider, private appSettings: AppSettings) {
     console.log('Hello LoginAndRegistrationProvider Provider');
@@ -65,6 +66,25 @@ export class LoginAndRegistrationProvider {
     });
   }
 
+  getUserByUid(uid: string): Observable<CRSUser> {
+    return Observable.create(observer => {
+      if(this.allUserList[uid]){
+        observer.next(this.allUserList[uid]);
+      }else{
+        let peopleURI = "people/" + uid;
+        this.afDatabase.database.ref().child(peopleURI).once('value').then((snapshot => {
+          let u = snapshot.val();
+          if(u){
+            this.allUserList[u.uid] = u;
+            observer.next(u);
+          }else{
+            observer.error();
+          }
+        }));
+      }
+    });
+  }
+
   setUser (){
     this.user = new CRSUser();
     this.user.uid = this.afAuth.auth.currentUser.uid;
@@ -104,7 +124,7 @@ export class LoginAndRegistrationProvider {
         let inv = snapshot.val();
         if(inv){
           this.user = new CRSUser();
-          this.user.fillFromInvitation(code, inv.name, inv.email);
+          this.user.fillFromInvitation(code, inv.firstName, inv.lastName, inv.email);
           observer.next(this.user);
         }else {
           this.messagingService.toast("Invalid Invitation Code. Try Again.",false);

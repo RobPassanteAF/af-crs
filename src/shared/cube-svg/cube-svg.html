@@ -1,0 +1,14 @@
+<svg:rect [attr.width]="cubeData.width" [attr.height]="cubeData.height" class="rect"
+[ngClass]="{'room': isRoom, 'locked': isLocked, 'open': isOpen, 'reserved': !cubeData.permanent && cubeData.person}"/>
+<svg:svg [attr.width]="cubeData.width" [attr.height]="cubeData.height">
+  <svg:text x="50%" y="50%" text-anchor="middle" class="roomText" *ngIf="isRoom">
+    <svg:tspan [attr.x]="text.xPos+'%'" [attr.y]="text.yPos+'%'" *ngFor="let text of cubeData.cubeText">{{text.val}}</svg:tspan>
+  </svg:text>
+  <svg:text x="50%" y="50%" text-anchor="middle" *ngIf="!isRoom" class="cubeText"
+  [ngClass]="{'allowedCursor': isOpen, 'notAllowedCursor': isLocked}">
+    <svg:tspan [attr.x]="text.xPos+'%'" [attr.y]="text.yPos+'%'" *ngFor="let text of cubeText">{{text.val}}</svg:tspan>
+  </svg:text>
+  <svg:text text-anchor="middle" class="cubeIdText" [ngClass]="{'allowedCursor': isOpen, 'notAllowedCursor': isLocked}">
+    <svg:tspan [attr.x]="30" [attr.y]="10">ID: {{cubeData.cubeId}}</svg:tspan>
+  </svg:text>
+</svg:svg>

@@ -1,27 +1,26 @@
-page-reserve {
-
-}
-
 .rect {
   stroke: #000000;
   stroke-width: 1;
-  cursor: pointer;
 }
 
 .room {
   fill: #a8a8a8;
+  cursor: not-allowed;
 }
 
 .locked {
   fill: #488aff;
+  cursor: not-allowed !important;
 }
 
 .reserved {
   fill: #e46312;
+  cursor: not-allowed !important;
 }
 
 .open {
   fill: #006B54;
+  cursor: pointer;
 }
 
 .cubeText {
@@ -30,7 +29,20 @@ page-reserve {
   font-weight: 700;
   stroke: none;
   fill: #FFFFFF;
-  cursor: pointer;
+}
+
+.cubeIdText {
+  alignment-baseline: middle;
+  font-size: 10px;
+  font-weight: 700;
+  stroke: none;
+  fill: #000000;
+  opacity: 0.2;
+}
+
+.cubeIdText:hover {
+  opacity: 1;
+  font-size: 12px
 }
 
 .roomText {
@@ -39,4 +51,18 @@ page-reserve {
   font-weight: 700;
   stroke: none;
   fill: #000000;
+  cursor: not-allowed;
+}
+
+.headerEndButtons{
+  width: 200px;
+  z-index: auto;
+}
+
+.allowedCursor {
+  cursor: pointer;
+}
+
+.notAllowedCursor {
+  cursor: not-allowed;
 }

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {CubiclesProvider} from "../../providers/cubicles/cubicles";
-import {MessagingProvider} from "../../providers/messaging/messaging";
-import {CRSCubicle} from "../../models/CRSCubicle";
-import {Observable} from "rxjs/Observable";
-import {PhotoViewer} from "@ionic-native/photo-viewer";
+import { IonicPage } from 'ionic-angular';
+import { CRSCubicle } from "../../models/CRSCubicle";
+import { CubiclesProvider } from "../../providers/cubicles/cubicles";
+import { MessagingProvider } from "../../providers/messaging/messaging";
+import { QRScannerStatus, QRScanner } from '@ionic-native/qr-scanner';
+import { CRSUser } from '../../models/CRSUser';
+import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
+import { Observable } from "rxjs/Observable";
 
 /**
  * Generated class for the ReservePage page.
@@ -20,55 +22,81 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
 })
 export class ReservePage {
 
+  user: CRSUser;
+  viewType: string;
   cubicles: Observable<CRSCubicle[]>;
-  hotelCubes = [];
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private cubiclesService: CubiclesProvider,
-              private messagingService: MessagingProvider,
-              private photoViewer: PhotoViewer) {
+  constructor( private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider,
+    private messagingService: MessagingProvider, private qrScanner: QRScanner) {
+    this.user = this.lrService.user;
     this.getAllCubicles();
-    this.hotelCubes.push({id:0,reserved:false});
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReservePage');
-    // this.cubiclesService.getAllCubibles().subscribe(cubicles => {
-    //   console.log(cubicles);
-    // });
-
-  }
-
-  testPhoto() {
-    this.photoViewer.show('https://captbbrucato.files.wordpress.com/2011/08/dscf0585_stitch-besonhurst-2.jpg', 'Test image title', {share: false})
-  }
-
-  getHotelCubeClass(id: number) {
-    let c = 'rect ';
-    if( this.hotelCubes[0].reserved ){
-      c = c + 'reserved';
-    }else {
-      c = c + 'open';
-    }
-    return c;
+    this.viewType = "map";
   }
 
   private getAllCubicles() {
     this.cubicles = this.cubiclesService.getAllCubibles();
   }
 
-  toggleCube(id: number) {
+  toggleCube(cube:CRSCubicle) {
+    if(cube.permanent) return;
     let msg;
-    if(this.hotelCubes[id].reserved){
-      this.cubiclesService.releaseCubicle(id);
-      msg = 'Cubicle Reserved';
-    } else {
-      this.cubiclesService.reserveCubicle(id);
+
+    if(cube.person && cube.person === this.user.uid){
+      this.cubiclesService.releaseCubicle(cube.cubeId);
       msg = 'Cubicle Released';
+    } else if (!cube.person) {
+      this.cubiclesService.reserveCubicle(cube.cubeId);
+      msg = 'Cubicle Reserved';
     }
-    this.hotelCubes[id].reserved = !this.hotelCubes[id].reserved;
     this.messagingService.toast(msg);
+  }
+
+  scanQRCode() {
+    this.qrScanner.prepare().then( (status: QRScannerStatus) => {
+      if (status.authorized) {
+        (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
+        (window.document.querySelector('.listContent') as HTMLElement).classList.add('hideScrollContent');
+
+        let scanSub = this.qrScanner.scan().subscribe((scannedCubicleId: string) => {
+        console.log('Scanned something', scannedCubicleId);
+
+        this.toggleCube(scannedCubicleId);
+
+        this.qrScanner.hide(); // hide camera preview
+        (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
+        (window.document.querySelector('.listContent') as HTMLElement).classList.remove('hideScrollContent');
+        scanSub.unsubscribe(); // stop scanning
+      });
+
+      // show camera preview
+      this.qrScanner.show();
+
+     } else if (status.denied) {
+       console.log('permision denied');
+     } else {
+      console.log('permision denied');    // DO something over here to alert the user
+     }
+    }).catch( (e: any) => {
+      console.log('Error is', e);
+    });
+
+  }
+
+  logDrag(item) {
+    let percent = item.getSlidingPercent();
+    if (percent > 0) {
+      // positive
+      console.log('right side');
+    } else {
+      // negative
+      console.log('left side');
+    }
+    if (Math.abs(percent) > 1) {
+      console.log('overscroll');
+    }
   }
 
 }
