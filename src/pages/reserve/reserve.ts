@@ -63,7 +63,9 @@ export class ReservePage {
         let scanSub = this.qrScanner.scan().subscribe((scannedCubicleId: string) => {
         console.log('Scanned something', scannedCubicleId);
 
-        this.toggleCube(scannedCubicleId);
+        let tempCube:CRSCubicle = new CRSCubicle();
+        tempCube.cubeId = scannedCubicleId;
+        this.toggleCube(tempCube);
 
         this.qrScanner.hide(); // hide camera preview
         (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
