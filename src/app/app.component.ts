@@ -8,6 +8,7 @@ import {LoginAndRegistrationProvider} from "../providers/login-and-registration/
 import {AppSettings} from "../providers/app-settings/app-settings";
 import {TabsPage} from "../pages/tabs/tabs";
 import { CubiclesProvider } from '../providers/cubicles/cubicles';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class MyApp {
 
   rootPage: any = TabsPage;
 
-  constructor(public lrService: LoginAndRegistrationProvider, public cubicleSvc: CubiclesProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private afAuth:AngularFireAuth,public lrService: LoginAndRegistrationProvider, public cubicleSvc: CubiclesProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 
     this.lrService.init().subscribe( () => {
       this.rootPage = TabsPage;
@@ -38,6 +39,11 @@ export class MyApp {
       }
     });
 
+    this.afAuth.auth.onAuthStateChanged( (authState) => {
+      if(!authState && this.lrService.user){
+        this.setRoot(LoginPage);
+      }
+    });
   }
 
   initializeApp() {

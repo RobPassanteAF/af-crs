@@ -6,7 +6,6 @@ import { AppSettings } from "../../providers/app-settings/app-settings";
 import { LoginAndRegistrationProvider } from "../../providers/login-and-registration/login-and-registration";
 import { TeamsProvider } from "../../providers/teams/teams";
 import { HomePage } from "../home/home";
-import { LoginPage } from "../login/login";
 import { Observable } from 'rxjs/Observable';
 
 /**
@@ -66,8 +65,6 @@ export class ProfilePage implements OnInit {
   }
 
   logout() {
-    this.lrService.logout().then( (result) => {
-      this.navCtrl.setRoot(LoginPage);
-    });
+    this.lrService.logout();
   }
 }

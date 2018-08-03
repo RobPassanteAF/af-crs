@@ -9,10 +9,13 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'home.html'
 })
 export class HomePage implements OnDestroy {
-  emptyCubicles: Observable<number>;
+  emptyCubicles: number;
 
   constructor(public navCtrl: NavController,  private messagingService: MessagingProvider, private cubiclesService: CubiclesProvider) {
-    this.emptyCubicles = this.cubiclesService.getEmptyCubicles();
+    this.cubiclesService.getEmptyCubicles().subscribe( (emptyCubes)=> {
+      this.cubiclesService.setEmptyCubicles(emptyCubes);
+      this.emptyCubicles = emptyCubes;
+    });
   }
 
   ngOnDestroy(){
