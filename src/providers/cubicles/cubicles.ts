@@ -16,10 +16,7 @@ export class CubiclesProvider {
   emptyCubicles: number;
 
   constructor(private afDatabase: AngularFireDatabase, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider ) {
-    this.getEmptyCubicles().subscribe( (val) => {
-      this.emptyCubicles = val}, (error) => {
-        console.log(error);
-      });
+
   }
 
   getAllCubibles() :Observable<CRSCubicle[]> {
@@ -28,6 +25,10 @@ export class CubiclesProvider {
 
   getEmptyCubicles() :Observable<number> {
     return this.afDatabase.object<number>('/emptyCubicles').valueChanges();
+  }
+
+  setEmptyCubicles( num: number ):void {
+    this.emptyCubicles = num;
   }
 
   reserveCubicle(id: string) {
@@ -58,4 +59,5 @@ export class CubiclesProvider {
     let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
     this.afDatabase.database.ref().child(peopleURI).update({cubicle: this.lrService.user.cubicle});
   }
+
 }

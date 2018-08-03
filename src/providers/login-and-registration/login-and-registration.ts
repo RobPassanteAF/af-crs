@@ -114,6 +114,7 @@ export class LoginAndRegistrationProvider {
   }
 
   logout() {
+    this.afDatabase.database.goOffline();
     return this.afAuth.auth.signOut();
   }
 

@@ -47,7 +47,7 @@
 
         <h4>Teams</h4>
 
-        <ion-item *ngFor="let team of teams">
+        <ion-item *ngFor="let team of teams | async">
           <ion-label>{{ team.name }}</ion-label>
           <ion-toggle checked="false" id="{{team.code}}" (ionChange)="onTeamChange(team)" checked="{{checkTeamSelection(team)}}"></ion-toggle>
         </ion-item>

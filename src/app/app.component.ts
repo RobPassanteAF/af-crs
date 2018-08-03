@@ -7,17 +7,19 @@ import {ProfilePage} from "../pages/profile/profile";
 import {LoginAndRegistrationProvider} from "../providers/login-and-registration/login-and-registration";
 import {AppSettings} from "../providers/app-settings/app-settings";
 import {TabsPage} from "../pages/tabs/tabs";
+import { CubiclesProvider } from '../providers/cubicles/cubicles';
 
 
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = TabsPage;
 
-  constructor(public lrService: LoginAndRegistrationProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public lrService: LoginAndRegistrationProvider, public cubicleSvc: CubiclesProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 
     this.lrService.init().subscribe( () => {
       this.rootPage = TabsPage;
@@ -44,7 +46,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
     });
   }
 

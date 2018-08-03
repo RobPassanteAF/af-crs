@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
 import { CRSTeam } from "../../models/CRSTeam";
 import { CRSUser } from "../../models/CRSUser";
 import { AppSettings } from "../../providers/app-settings/app-settings";
@@ -9,6 +7,7 @@ import { LoginAndRegistrationProvider } from "../../providers/login-and-registra
 import { TeamsProvider } from "../../providers/teams/teams";
 import { HomePage } from "../home/home";
 import { LoginPage } from "../login/login";
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the ProfilePage page.
@@ -21,10 +20,9 @@ import { LoginPage } from "../login/login";
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class ProfilePage implements OnInit, OnDestroy{
+export class ProfilePage implements OnInit {
 
   user: CRSUser;
-  teams_sub: Subscription;
   teams: Observable<CRSTeam[]>;
 
 
@@ -33,13 +31,7 @@ export class ProfilePage implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.user = this.appSettings.getUser();
-    this.teams_sub = this.teamsService.loadTeams().subscribe( (teams) => {
-      this.teams = teams;
-    });
-  }
-
-  ngOnDestroy() {
-    this.teams_sub.unsubscribe();
+    this.teams = this.teamsService.loadTeams();
   }
 
   onTeamChange(team: CRSTeam) {
