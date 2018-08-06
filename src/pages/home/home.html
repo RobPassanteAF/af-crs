@@ -10,8 +10,8 @@
 <ion-content>
   <!-- <legend>Where are you working today?</legend> -->
   <ion-grid>
-    <ion-row> 
-      <ion-col col-12 col-md> 
+    <ion-row>
+      <ion-col col-12 col-md>
           <ion-card (click)="selectLocation('Home')">
               <img src="assets/imgs/home.jpeg"/>
               <div class="card-title">Home</div>
@@ -19,7 +19,7 @@
             </ion-card>
       </ion-col>
 
-      <ion-col col-12 col-md> 
+      <ion-col col-12 col-md>
           <ion-card (click)="selectLocation('the Office')">
               <img src="assets/imgs/office.jpeg"/>
               <div class="card-title">Office</div>
@@ -27,11 +27,25 @@
             </ion-card>
       </ion-col>
     </ion-row>
+    <ion-title *ngIf="myTeamsAndTeammates?.length">Your teams and teammates</ion-title>
+    <ion-row *ngIf="myTeamsAndTeammates?.length">
+      <ion-col col col-md *ngFor="let team of myTeamsAndTeammates">
+        <ion-list>
+          <ion-item-group>
+            <ion-item-divider color="primary"><b>{{team.teamName}}</b></ion-item-divider>
+            <ion-item *ngFor="let teammate of team.members | mapToIterable">
+              <h6>{{teammate.val}}</h6>
+              <button item-end ion-button round small (click)="locateTeammate(teammate)">Locate</button>
+            </ion-item>
+          </ion-item-group>
+        </ion-list>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-  
-  
 
- 
+
+
+
 
 
   <!-- <img src="assets/imgs/home.jpeg" alt="">

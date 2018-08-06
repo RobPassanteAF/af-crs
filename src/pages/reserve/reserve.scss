@@ -9,7 +9,7 @@
 }
 
 .locked {
-  fill: #488aff;
+  fill: lighten(#a8a8a8,20);
   cursor: not-allowed !important;
 }
 
@@ -18,8 +18,20 @@
   cursor: not-allowed !important;
 }
 
-.open {
+.located {
   fill: #006B54;
+  stroke: #000000;
+  stroke-width: 2;
+}
+
+.list-locate{
+  background-color: #006B54;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.open {
+  fill: #488aff;
   cursor: pointer;
 }
 
@@ -31,13 +43,21 @@
   fill: #FFFFFF;
 }
 
+.locked .cubeText {
+  fill: #000000;
+}
+
+.located .cubeText {
+  fill: #ffffff;
+}
+
 .cubeIdText {
   alignment-baseline: middle;
   font-size: 10px;
   font-weight: 700;
   stroke: none;
   fill: #000000;
-  opacity: 0.2;
+  opacity: 0.05;
 }
 
 .cubeIdText:hover {

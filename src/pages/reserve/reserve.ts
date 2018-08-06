@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavParams } from 'ionic-angular';
 import { CRSCubicle } from "../../models/CRSCubicle";
 import { CubiclesProvider } from "../../providers/cubicles/cubicles";
 import { MessagingProvider } from "../../providers/messaging/messaging";
@@ -25,19 +25,34 @@ export class ReservePage {
   user: CRSUser;
   viewType: string;
   cubicles: Observable<CRSCubicle[]>;
+  locateUser: string;
 
   constructor( private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider,
-    private messagingService: MessagingProvider, private qrScanner: QRScanner) {
+    private messagingService: MessagingProvider, private qrScanner: QRScanner, private navParams: NavParams) {
     this.user = this.lrService.user;
     this.getAllCubicles();
   }
 
   ionViewDidLoad() {
     this.viewType = "map";
+    console.log('reserve view loaded');
+    const locate = this.navParams.get('locate');
+    if( locate ){
+      this.locateUser = locate.uid;
+      this.messagingService.toast('Locating ' + locate.name );
+    }
   }
 
   private getAllCubicles() {
     this.cubicles = this.cubiclesService.getAllCubibles();
+  }
+
+  getButtonColor(cube:CRSCubicle):string {
+    let color = 'primary';
+    if(cube.person){
+      color = 'warning';
+    }
+    return 'danger';
   }
 
   toggleCube(cube:CRSCubicle) {

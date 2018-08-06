@@ -10,6 +10,7 @@ import { CRSCubicle } from '../../models/CRSCubicle';
 export class CubeSvg implements OnInit {
 
   @Input() cubeData: CRSCubicle;
+  @Input() locate: string;
   isRoom: boolean;
   isOpen: boolean;
   isLocked: boolean;
@@ -19,6 +20,7 @@ export class CubeSvg implements OnInit {
   constructor( private lrs: LoginAndRegistrationProvider ) {
 
   }
+
   ngOnInit() {
     if(this.cubeData.person){
       this.isRoom = false;

@@ -23,7 +23,8 @@ import { AppSettings } from '../providers/app-settings/app-settings';
 import { TabsPage } from "../pages/tabs/tabs";
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { CubeSvg } from "../shared/cube-svg/cube-svg";
-import { HideReservedCubesPipe } from '../pipes/hide-reserved-cubes/hide-reserved-cubes';
+import { MapToIterable } from '../pipes/map-to-iterable';
+import { HideReservedCubes } from '../pipes/hide-reserved-cubes';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     RegisterPage,
     ProfilePage,
     CubeSvg,
-    HideReservedCubesPipe
+    MapToIterable,
+    HideReservedCubes
   ],
   imports: [
     BrowserModule,

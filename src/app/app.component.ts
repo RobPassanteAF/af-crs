@@ -18,7 +18,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = TabsPage;
+  rootPage: any;
 
   constructor(private afAuth:AngularFireAuth,public lrService: LoginAndRegistrationProvider, public cubicleSvc: CubiclesProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
 

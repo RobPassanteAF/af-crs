@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase } from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
-import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
-import { CRSCubicle } from './../../models/CRSCubicle';
+import {LoginAndRegistrationProvider} from "../login-and-registration/login-and-registration";
+import { CRSCubicle } from '../../models/CRSCubicle';
 import {AngularFireAuth} from "angularfire2/auth";
 
 /*

@@ -5,8 +5,8 @@ import { CRSUser } from "../../models/CRSUser";
 import { AppSettings } from "../../providers/app-settings/app-settings";
 import { LoginAndRegistrationProvider } from "../../providers/login-and-registration/login-and-registration";
 import { TeamsProvider } from "../../providers/teams/teams";
-import { HomePage } from "../home/home";
 import { Observable } from 'rxjs/Observable';
+import { MessagingProvider } from '../../providers/messaging/messaging';
 
 /**
  * Generated class for the ProfilePage page.
@@ -25,7 +25,7 @@ export class ProfilePage implements OnInit {
   teams: Observable<CRSTeam[]>;
 
 
-  constructor(private lrService: LoginAndRegistrationProvider, private appSettings: AppSettings, private teamsService: TeamsProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private lrService: LoginAndRegistrationProvider, private appSettings: AppSettings, private teamsService: TeamsProvider, public navCtrl: NavController, public navParams: NavParams,  private messagingService: MessagingProvider) {
   }
 
   ngOnInit() {
@@ -60,7 +60,7 @@ export class ProfilePage implements OnInit {
 
   updateProfile() {
     this.lrService.updateUser().subscribe((user) => {
-      this.navCtrl.push(HomePage);
+      this.messagingService.toast("Profile Update Successful");
     });
   }
 

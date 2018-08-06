@@ -5,11 +5,12 @@ export class CRSTeam{
 
   public code: string;
   public name: string;
-  public members: Array<any>[]
+  public members: Object
 
-  constructor(code:string,name:string,members:Array<any>){
+  constructor(code:string,name:string,members:Object){
     this.code = code;
     this.name = name;
+    this.members = members;
   }
 
 }

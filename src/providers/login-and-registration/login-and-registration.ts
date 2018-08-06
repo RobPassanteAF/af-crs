@@ -5,6 +5,7 @@ import {MessagingProvider} from "../messaging/messaging";
 import {Observable} from "rxjs/Observable";
 import {CRSUser} from "../../models/CRSUser";
 import {AppSettings} from "../app-settings/app-settings";
+import { CRSTeam } from '../../models/CRSTeam';
 
 /*
   Generated class for the LoginAndRegistrationProvider provider.
@@ -115,7 +116,9 @@ export class LoginAndRegistrationProvider {
 
   logout() {
     this.afDatabase.database.goOffline();
-    return this.afAuth.auth.signOut();
+    return this.afAuth.auth.signOut().then( (result) => {
+      this.afDatabase.database.goOnline();
+    });
   }
 
   checkInvitation(code){
@@ -154,8 +157,37 @@ export class LoginAndRegistrationProvider {
     return Observable.create(observer => {
       this.user.validated = true;
       this.afDatabase.database.ref('people/' + this.user.uid).set(this.user).then(
-        function (result) {
-          observer.next();
+        (result) => {
+          if(this.user.teams){
+            this.afDatabase.database.ref('teams/').once('value').then( (teams) => {
+              for(let t in teams.val()){
+                let currentTeam: CRSTeam = teams.val()[t];
+                if(this.user.teams[t]){
+                  //User IS on this team
+                  if(!currentTeam.members){
+                    currentTeam.members = {};
+                  }
+                  if(!currentTeam.members[this.user.uid]){
+                    //User is missing, add them
+                    currentTeam.members[this.user.uid] = this.user.fullName;
+                    this.afDatabase.database.ref('teams/'+t).set(currentTeam);
+                  }
+                }else{
+                  //User is NOT on this team
+                  if(currentTeam.members && currentTeam.members[this.user.uid]){
+                    //User is here and needs to be removed
+                    delete currentTeam.members[this.user.uid];
+                    if(currentTeam.members === {}){
+                      delete currentTeam.members;
+                    }
+                    this.afDatabase.database.ref('teams/'+t).set(currentTeam);
+                  }
+                }
+
+              }
+              observer.next(this.user);
+            });
+          }
         }
       );
     });

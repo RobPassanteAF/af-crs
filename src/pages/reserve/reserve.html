@@ -30,12 +30,13 @@
 
   <div style="overflow: auto" *ngIf="viewType==='map'">
     <svg width="855" height="875">
-      <svg:g cube-svg *ngFor="let cubicle of cubicles  | async" [cubeData]="cubicle" [attr.transform]="'translate('+cubicle.xPosition+','+cubicle.yPosition+')'" (click)="toggleCube(cubicle)"></svg:g>
+      <svg:g cube-svg *ngFor="let cubicle of cubicles  | async" [cubeData]="cubicle" [locate]="locateUser"
+      [attr.transform]="'translate('+cubicle.xPosition+','+cubicle.yPosition+')'" (click)="toggleCube(cubicle)"></svg:g>
     </svg>
   </div>
   <ion-list *ngIf="viewType==='list'">
-    <ion-item-sliding *ngFor="let cubicle of cubicles | async | hideReservedCubesPipe">
-      <ion-item >
+    <ion-item-sliding *ngFor="let cubicle of cubicles | async">
+      <ion-item [ngClass]="{'list-locate': locateUser && cubicle.person === locateUser}">
         <h2>Hotel Cube - {{cubicle.cubeId}} <span *ngIf="cubicle.personName"> - {{cubicle.personName}} </span> </h2>
         <p> {{cubicle.team}}</p>
         <button *ngIf="!cubicle.person" ion-button color="primary"  item-end (click)="toggleCube(cubicle)">
@@ -43,7 +44,7 @@
             &nbsp; Reserve
           </button>
 
-          <button *ngIf="cubicle.person == user?.uid" ion-button color="primary"  item-end (click)="toggleCube(cubicle)">
+          <button *ngIf="cubicle.person == user?.uid" ion-button color="warning"  item-end (click)="toggleCube(cubicle)">
             <ion-icon name="add"></ion-icon>
             &nbsp; Release
           </button>
