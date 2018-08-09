@@ -73,7 +73,7 @@ export class ReservePage {
     this.qrScanner.prepare().then( (status: QRScannerStatus) => {
       if (status.authorized) {
         (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
-        (window.document.querySelector('.listContent') as HTMLElement).classList.add('hideScrollContent');
+     //   (window.document.querySelector('.listContent') as HTMLElement).classList.add('hideScrollContent');
 
         let scanSub = this.qrScanner.scan().subscribe((scannedCubicleId: string) => {
         console.log('Scanned something', scannedCubicleId);
