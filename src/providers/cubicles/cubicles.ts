@@ -14,6 +14,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 @Injectable()
 export class CubiclesProvider {
   emptyCubicles: number;
+  lastReleaseAllDate: Date;
 
   constructor(private afDatabase: AngularFireDatabase, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider ) {
 
@@ -29,6 +30,15 @@ export class CubiclesProvider {
 
   setEmptyCubicles( num: number ):void {
     this.emptyCubicles = num;
+  }
+
+  getLastReleaseAllDate() :Observable<Date> {
+    return this.afDatabase.object<Date>('/lastReleaseAllDate').valueChanges();
+  }
+
+  setLastReleaseAllDate( lastReleaseAllDate: Date ):void {
+    this.afDatabase.database.ref('/').update({lastReleaseAllDate:lastReleaseAllDate});   // not swapping, so one less cubicle
+    this.lastReleaseAllDate = lastReleaseAllDate;
   }
 
   reserveCubicle(id: string) {

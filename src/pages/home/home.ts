@@ -18,6 +18,16 @@ export class HomePage implements OnDestroy {
       this.cubiclesService.setEmptyCubicles(emptyCubes);
       this.emptyCubicles = emptyCubes;
     });
+
+    this.cubiclesService.getLastReleaseAllDate().subscribe( (lastReleaseAllDate)=> {
+      console.log(lastReleaseAllDate);
+      var scheduledRelease = new Date();
+      scheduledRelease.setHours(5,0,0,0);
+      if(new Date(lastReleaseAllDate).valueOf() < scheduledRelease.valueOf()) {
+        console.log('setting date as now -> ' + new Date());
+        this.cubiclesService.setLastReleaseAllDate(new Date());
+      }
+    });
     this.getMyTeammates();
   }
 
