@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase} from "angularfire2/database";
 import { CRSTeam } from '../../models/CRSTeam';
 import { CRSUser } from '../../models/CRSUser';
 import { LoginAndRegistrationProvider } from '../login-and-registration/login-and-registration';
 import { Observable } from 'rxjs/Observable';
+import { AngularFirestore } from 'angularfire2/firestore';
 /*
   Generated class for the TeamsProvider provider.
 
@@ -15,37 +15,33 @@ export class TeamsProvider {
 
   myTeamsAndTeammates: Array<any> = [];
 
-  constructor(private afDatabase: AngularFireDatabase, private lrService: LoginAndRegistrationProvider) {
+  constructor(private afs: AngularFirestore, private lrService: LoginAndRegistrationProvider) {
 
   }
 
   loadTeams() {
-    return this.afDatabase.list<CRSTeam>('teams').valueChanges();
+    return this.afs.collection<CRSTeam>('teams').valueChanges();
   }
 
   myTeamMates(): Observable<any> {
     return Observable.create(observer => {
       this.lrService.getUser().subscribe( (user:CRSUser) => {
-        console.log('User: ' + user);
-        const currentUser: CRSUser = user;
-        this.afDatabase.list<CRSTeam>('teams/').valueChanges().subscribe( (teams) => {
-          teams.forEach( (currentTeam: CRSTeam) => {
-            //delete currentTeam.members[currentUser.uid]
-            if(currentUser.teams[currentTeam.code] && currentTeam.members){
-              let t = {
-                "teamCode": currentTeam.code,
-                "teamName": currentTeam.name,
-                "members": currentTeam.members
-              }
-              this.myTeamsAndTeammates.push(t);
-            }
-          })
-          observer.next(this.myTeamsAndTeammates);
+        const uid = user.uid;
+        let userTeams;
+        let userTeamRef = this.afs.collection('/people/'+uid+'/teams');
+        userTeamRef.valueChanges().subscribe( (teams) => {
+          userTeams = teams;
+          userTeams.forEach( (team) => {
+            console.log(team);
+            let teamMembersRef = this.afs.collection('/teams/'+team.code+'/members');
+            teamMembersRef.valueChanges().subscribe( (value) => {
+              team.members = value;
+              observer.next(userTeams);
+            })
+          });
         })
       });
     });
   }
-
-
 
 }

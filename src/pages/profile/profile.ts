@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { CRSTeam } from "../../models/CRSTeam";
 import { CRSUser } from "../../models/CRSUser";
 import { AppSettings } from "../../providers/app-settings/app-settings";
 import { LoginAndRegistrationProvider } from "../../providers/login-and-registration/login-and-registration";
 import { TeamsProvider } from "../../providers/teams/teams";
-import { Observable } from 'rxjs/Observable';
 import { MessagingProvider } from '../../providers/messaging/messaging';
+import { PasswordChange } from '../../models/PasswordChange';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ProfilePage page.
@@ -14,15 +15,16 @@ import { MessagingProvider } from '../../providers/messaging/messaging';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-@IonicPage()
+
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
 export class ProfilePage implements OnInit {
 
+  passwordChange:PasswordChange = new PasswordChange();
   user: CRSUser;
-  teams: Observable<CRSTeam[]>;
+  teams: CRSTeam[];
 
 
   constructor(private lrService: LoginAndRegistrationProvider, private appSettings: AppSettings, private teamsService: TeamsProvider, public navCtrl: NavController, public navParams: NavParams,  private messagingService: MessagingProvider) {
@@ -30,22 +32,32 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.user = this.appSettings.getUser();
-    this.teams = this.teamsService.loadTeams();
+    this.teamsService.loadTeams().subscribe( (teams) => {
+      this.teams = teams;
+    });
+  }
+
+  ionViewCanLeave(): boolean {
+    return this.user.validated;
   }
 
   onTeamChange(team: CRSTeam) {
-    let found: boolean;
+    let idx: number = -1;
     if ( this.user.teams ){
-      found = ( this.user.teams[team.code] !== undefined );
+      idx = this.user.teams.findIndex(item => item.code === team.code);
     }else{
-      this.user.teams = {};
-      found = false;
+      this.user.teams = [];
     }
 
-    if(!found){
-      this.user.teams[team.code] = team.name;
+    if(idx === -1){
+      let t = team;
+      delete t.members;
+      this.user.teams.push(t);
     }else {
-      delete this.user.teams[team.code];
+      this.user.teams.splice(idx,1);
+      if(this.user.teams.length === 0) {
+        delete this.user.teams;
+      }
     }
   }
 
@@ -54,17 +66,32 @@ export class ProfilePage implements OnInit {
       return false;
     }
 
-    const found = ( this.user.teams[team.code] !== undefined );
-    return found;
+    return ( this.user.teams.findIndex(item => item.code === team.code) !== -1 );
   }
 
   updateProfile() {
-    this.lrService.updateUser().subscribe((user) => {
-      this.messagingService.toast("Profile Update Successful");
-    });
+    let valid: boolean = false;
+    if(this.passwordChange.showPasswordChange){
+      valid = ( this.passwordChange.newPassword === this.passwordChange.confirmValue );
+      if(!valid){
+        this.messagingService.toast("Passwords must match");
+      }
+    }else{
+      valid = true;
+    }
+    if(valid){
+      this.lrService.updateUser(this.user, this.passwordChange).subscribe((user) => {
+        this.messagingService.toast("Profile Update Successful");
+      });
+    }
   }
 
   logout() {
-    this.lrService.logout();
+    this.lrService.logout().then( (result) => {
+      this.navCtrl.setRoot(LoginPage).then( (result) => {
+        this.user = null;
+        this.lrService.postLogout();
+      });
+    });;
   }
 }

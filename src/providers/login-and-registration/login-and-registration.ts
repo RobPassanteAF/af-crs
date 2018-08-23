@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase} from "angularfire2/database";
 import {MessagingProvider} from "../messaging/messaging";
 import {Observable} from "rxjs/Observable";
 import {CRSUser} from "../../models/CRSUser";
 import {AppSettings} from "../app-settings/app-settings";
 import { CRSTeam } from '../../models/CRSTeam';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { PasswordChange } from '../../models/PasswordChange';
 
 /*
   Generated class for the LoginAndRegistrationProvider provider.
@@ -19,7 +20,7 @@ export class LoginAndRegistrationProvider {
   user: CRSUser;
   allUserList: Object = {};
 
-  constructor(private afAuth:AngularFireAuth, private afDatabase: AngularFireDatabase, private messagingService: MessagingProvider, private appSettings: AppSettings) {
+  constructor(private afAuth:AngularFireAuth, private afs: AngularFirestore, private messagingService: MessagingProvider, private appSettings: AppSettings) {
     console.log('Hello LoginAndRegistrationProvider Provider');
   }
 
@@ -51,9 +52,7 @@ export class LoginAndRegistrationProvider {
       if(this.user){
         observer.next(this.user);
       }else{
-        let peopleURI = "people/" + this.afAuth.auth.currentUser.uid;
-        this.afDatabase.database.ref().child(peopleURI).once('value').then((snapshot => {
-          let u = snapshot.val();
+        this.afs.collection('people').doc(this.afAuth.auth.currentUser.uid).valueChanges().subscribe( (u:CRSUser) => {
           if(u){
             this.user = u;
             this.appSettings.setUser(this.user);
@@ -62,7 +61,7 @@ export class LoginAndRegistrationProvider {
             this.setUser();
             observer.error();
           }
-        }));
+        });
       }
     });
   }
@@ -72,16 +71,14 @@ export class LoginAndRegistrationProvider {
       if(this.allUserList[uid]){
         observer.next(this.allUserList[uid]);
       }else{
-        let peopleURI = "people/" + uid;
-        this.afDatabase.database.ref().child(peopleURI).once('value').then((snapshot => {
-          let u = snapshot.val();
+        this.afs.collection('people').doc(uid).valueChanges().subscribe( (u:CRSUser) => {
           if(u){
             this.allUserList[u.uid] = u;
             observer.next(u);
           }else{
             observer.error();
           }
-        }));
+        });
       }
     });
   }
@@ -93,6 +90,10 @@ export class LoginAndRegistrationProvider {
     this.user.email = this.afAuth.auth.currentUser.email;
     this.user.teams = [];
     this.appSettings.setUser(this.user);
+  }
+
+  postLogout() {
+    this.user = null;
   }
 
   login(email,password) {
@@ -115,17 +116,12 @@ export class LoginAndRegistrationProvider {
   }
 
   logout() {
-    this.afDatabase.database.goOffline();
-    return this.afAuth.auth.signOut().then( (result) => {
-      this.afDatabase.database.goOnline();
-    });
+    return this.afAuth.auth.signOut();
   }
 
   checkInvitation(code){
-    let invitationURI = "invitations/" + code;
     return Observable.create(observer => {
-      this.afDatabase.database.ref().child(invitationURI).once('value').then((snapshot) => {
-        let inv = snapshot.val();
+      this.afs.collection('invitations').doc(code).valueChanges().subscribe( (inv:any) => {
         if(inv){
           this.user = new CRSUser();
           this.user.fillFromInvitation(code, inv.firstName, inv.lastName, inv.email);
@@ -141,8 +137,10 @@ export class LoginAndRegistrationProvider {
   finalizeRegistration(password, displayName){
     return Observable.create(observer => {
       this.afAuth.auth.createUserWithEmailAndPassword(this.user.email, password).then((newUser) => {
+        this.user.uid = newUser.uid;
         newUser.updateProfile({displayName:displayName}).then(
-          function(result){
+          (result) => {
+            this.appSettings.setUser(this.user);
             observer.next(true);
           }
         );
@@ -153,26 +151,26 @@ export class LoginAndRegistrationProvider {
     });
   }
 
-  updateUser() {
+  updateUser(user: CRSUser, passwordChange: PasswordChange) {
     return Observable.create(observer => {
-      this.user.validated = true;
-      this.afDatabase.database.ref('people/' + this.user.uid).set(this.user).then(
-        (result) => {
+      user.validated = true;
+      this.user.fullName = this.user.firstName + ' ' + this.user.lastName;
+      this.afs.collection<CRSUser>('people').doc(user.uid).set(Object.assign({},user)).then(() => {
+          this.user = user;
           if(this.user.teams){
-            this.afDatabase.database.ref('teams/').once('value').then( (teams) => {
-              for(let t in teams.val()){
-                let currentTeam: CRSTeam = teams.val()[t];
-                if(this.user.teams[t]){
+            this.afs.collection('teams').valueChanges().subscribe( (allTeams:CRSTeam[]) => {
+              allTeams.forEach( (currentTeam:CRSTeam) => {
+                if( this.user.teams && this.user.teams.find( item => item.code === currentTeam.code) ) {
                   //User IS on this team
                   if(!currentTeam.members){
                     currentTeam.members = {};
                   }
                   if(!currentTeam.members[this.user.uid]){
                     //User is missing, add them
-                    currentTeam.members[this.user.uid] = this.user.fullName;
-                    this.afDatabase.database.ref('teams/'+t).set(currentTeam);
+                    currentTeam.members[this.user.uid] = {'name': this.user.fullName, 'uid': this.user.uid, 'wfh': this.user.wfh};
+                    this.afs.collection('teams').doc(currentTeam.code).set(currentTeam);
                   }
-                }else{
+                } else {
                   //User is NOT on this team
                   if(currentTeam.members && currentTeam.members[this.user.uid]){
                     //User is here and needs to be removed
@@ -180,11 +178,11 @@ export class LoginAndRegistrationProvider {
                     if(currentTeam.members === {}){
                       delete currentTeam.members;
                     }
-                    this.afDatabase.database.ref('teams/'+t).set(currentTeam);
+                    this.afs.collection('teams').doc(currentTeam.code).set(currentTeam);
                   }
                 }
 
-              }
+              })
               observer.next(this.user);
             });
           }

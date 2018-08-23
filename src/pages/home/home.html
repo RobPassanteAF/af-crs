@@ -23,18 +23,18 @@
           <ion-card (click)="selectLocation('the Office')">
               <img src="assets/imgs/office.jpeg"/>
               <div class="card-title">Office</div>
-              <div class="card-subtitle">{{emptyCubicles}} empty cubicles</div>
+              <div class="card-subtitle">{{cubeCounts?.emptyCubes}} empty cubicles</div>
             </ion-card>
       </ion-col>
     </ion-row>
     <ion-title *ngIf="myTeamsAndTeammates?.length">Your teams and teammates</ion-title>
     <ion-row *ngIf="myTeamsAndTeammates?.length">
-      <ion-col col col-md *ngFor="let team of myTeamsAndTeammates">
+      <ion-col col-4 *ngFor="let team of myTeamsAndTeammates">
         <ion-list>
           <ion-item-group>
-            <ion-item-divider color="primary"><b>{{team.teamName}}</b></ion-item-divider>
-            <ion-item *ngFor="let teammate of team.members | mapToIterable">
-              <h6>{{teammate.val}}</h6>
+            <ion-item-divider color="primary"><b>{{team.name}}</b></ion-item-divider>
+            <ion-item *ngFor="let teammate of team.members">
+              <h6>{{teammate}}</h6>
               <button item-end ion-button round small (click)="locateTeammate(teammate)">Locate</button>
             </ion-item>
           </ion-item-group>
@@ -42,12 +42,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
-
-
-
   <!-- <img src="assets/imgs/home.jpeg" alt="">
   <img src="assets/imgs/office.jpeg" style="margin-top: -10px;" alt=""> -->
 </ion-content>

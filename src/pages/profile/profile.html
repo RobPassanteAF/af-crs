@@ -41,13 +41,28 @@
         </ion-item>
 
         <ion-item>
+          <ion-label stacked>Change Password</ion-label>
+          <ion-checkbox id="changePassword" name="changePassword" [(ngModel)]="passwordChange.showPasswordChange" ></ion-checkbox>
+        </ion-item>
+
+        <ion-item *ngIf="passwordChange.showPasswordChange">
+          <ion-label stacked>New Password</ion-label>
+          <ion-input type="password" id="newPassword" name="newPassword" [(ngModel)]="passwordChange.newPassword" ></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="passwordChange.showPasswordChange">
+          <ion-label stacked>Confirm New Password</ion-label>
+          <ion-input type="password" id="confirmNewPassword" name="confirmNewPassword" [(ngModel)]="passwordChange.confirmValue" ></ion-input>
+        </ion-item>
+
+        <ion-item>
           <ion-label stacked>Phone</ion-label>
           <ion-input type="phone" id="cell" name="cell" [(ngModel)]="user.cell" ></ion-input>
         </ion-item>
 
         <h4>Teams</h4>
 
-        <ion-item *ngFor="let team of teams | async">
+        <ion-item *ngFor="let team of teams">
           <ion-label>{{ team.name }}</ion-label>
           <ion-toggle checked="false" id="{{team.code}}" (ionChange)="onTeamChange(team)" checked="{{checkTeamSelection(team)}}"></ion-toggle>
         </ion-item>
@@ -55,7 +70,7 @@
       </ion-list>
 
       <button ion-button icon-left (click)="updateProfile(profileForm)">
-        <ion-icon name="lock"></ion-icon>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
         Update Profile
       </button>
 

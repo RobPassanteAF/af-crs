@@ -3,8 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {LoginAndRegistrationProvider} from "../../providers/login-and-registration/login-and-registration";
 import {MessagingProvider} from "../../providers/messaging/messaging";
-import {ProfilePage} from "../profile/profile";
 import {CRSUser} from "../../models/CRSUser";
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the RegisterPage page.
@@ -39,7 +39,7 @@ export class RegisterPage implements OnInit{
     if(form.value.pw1 === form.value.pw2){
       const fullName = form.value.firstName + " " + form.value.lastName
       this.lrService.finalizeRegistration(form.value.pw1, fullName).subscribe((result) => {
-        this.navCtrl.push(ProfilePage);
+        this.navCtrl.setRoot(TabsPage);
       }, err => {
         this.messagingService.toast(err.message);
       });

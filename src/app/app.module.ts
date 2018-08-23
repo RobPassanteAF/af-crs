@@ -13,7 +13,7 @@ import { AngularFireModule } from "angularfire2";
 import { LoginPage } from "../pages/login/login";
 import { AngularFireAuth } from "angularfire2/auth";
 import { RegisterPage } from "../pages/register/register";
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFirestoreModule } from "angularfire2/firestore";
 import { LoginAndRegistrationProvider } from '../providers/login-and-registration/login-and-registration';
 import { MessagingProvider } from '../providers/messaging/messaging';
 import { CubiclesProvider } from '../providers/cubicles/cubicles';
@@ -53,7 +53,8 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     FormsModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,7 +71,6 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     AngularFireAuth,
-    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginAndRegistrationProvider,
     MessagingProvider,

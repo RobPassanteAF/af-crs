@@ -1,3 +1,5 @@
+import { CRSTeam } from "./CRSTeam";
+
 /**
  * Created by robpassante on 1/26/18.
  */
@@ -9,8 +11,9 @@ export class CRSUser {
   public fullName: string;
   public email: string;
   public cell: string;
-  public teams: Object;
+  public teams: Array<CRSTeam>;
   public cubicle: string;
+  public wfh: boolean = false;
   public validated: boolean = false;
 
   constructor(){}
