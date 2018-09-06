@@ -43,6 +43,17 @@ export class ReservePage {
     }
   }
 
+  locateCube( cube:CRSCubicle ): void {
+    if(cube.person){
+      this.locateUser = cube.person;
+      this.messagingService.toast('Locating ' + cube.personName );
+    }else{
+      this.locateUser = cube.cubeId;
+      this.messagingService.toast('Locating ' + cube.cubeId );
+    }
+    this.viewType = "map";
+  }
+
   private getAllCubicles() {
     this.cubicles = this.cubiclesService.getAllCubibles();
   }

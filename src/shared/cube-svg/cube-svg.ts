@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CRSCubeText } from '../../models/CRSCubeText';
 import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
+import { AppSettings } from '../../providers/app-settings/app-settings';
 import { CRSCubicle } from '../../models/CRSCubicle';
+import { CRSUser } from '../../models/CRSUser';
 
 @Component({
   selector: '[cube-svg]',
@@ -14,10 +16,10 @@ export class CubeSvg implements OnInit {
   isRoom: boolean;
   isOpen: boolean;
   isLocked: boolean;
-
+  loggedInUser: CRSUser;
   cubeText: Array<CRSCubeText> = [];
 
-  constructor( private lrs: LoginAndRegistrationProvider ) {
+  constructor( private lrs: LoginAndRegistrationProvider, private appSettings: AppSettings ) {
 
   }
 
@@ -29,6 +31,7 @@ export class CubeSvg implements OnInit {
       this.getCubeText(this.cubeData.person);
     }else{
       if(!this.cubeData.cubeText){
+        this.cubeData.personName = null;
         this.isRoom = false;
         this.isLocked = this.cubeData.permanent;
         this.isOpen = (!this.cubeData.permanent);
@@ -40,10 +43,12 @@ export class CubeSvg implements OnInit {
         this.isOpen = false;
       }
     }
+    this.loggedInUser = this.appSettings.getUser();
   }
 
   getCubeText( uid: string ): void {
     this.lrs.getUserByUid(uid).subscribe( (user) => {
+      this.cubeData.personName = user.firstName + ' ' + user.lastName;
       this.createCubeText(50,50,user.firstName);
       this.createCubeText(50,75,user.lastName);
     })

@@ -158,7 +158,8 @@ export class LoginAndRegistrationProvider {
       this.afs.collection<CRSUser>('people').doc(user.uid).set(Object.assign({},user)).then(() => {
           this.user = user;
           if(this.user.teams){
-            this.afs.collection('teams').valueChanges().subscribe( (allTeams:CRSTeam[]) => {
+            let teamSub = this.afs.collection('teams').valueChanges().subscribe( (allTeams:CRSTeam[]) => {
+              teamSub.unsubscribe();
               allTeams.forEach( (currentTeam:CRSTeam) => {
                 if( this.user.teams && this.user.teams.find( item => item.code === currentTeam.code) ) {
                   //User IS on this team
@@ -169,6 +170,8 @@ export class LoginAndRegistrationProvider {
                     //User is missing, add them
                     currentTeam.members[this.user.uid] = {'name': this.user.fullName, 'uid': this.user.uid, 'wfh': this.user.wfh};
                     this.afs.collection('teams').doc(currentTeam.code).set(currentTeam);
+                  }else{
+                    console.log('user is already on this team');
                   }
                 } else {
                   //User is NOT on this team

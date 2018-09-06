@@ -8,22 +8,20 @@
 </ion-header>
 
 <ion-content>
-  <!-- <legend>Where are you working today?</legend> -->
   <ion-grid>
     <ion-row>
       <ion-col col-12 col-md>
-          <ion-card (click)="selectLocation('Home')">
+          <ion-card (click)="selectLocation('HOME')" class="allowedCursor">
               <img src="assets/imgs/home.jpeg"/>
               <div class="card-title">Home</div>
-              <!-- <div class="card-subtitle">41 Listings</div> -->
             </ion-card>
       </ion-col>
 
       <ion-col col-12 col-md>
-          <ion-card (click)="selectLocation('the Office')">
+          <ion-card (click)="selectLocation('OFFICE')" class="allowedCursor">
               <img src="assets/imgs/office.jpeg"/>
               <div class="card-title">Office</div>
-              <div class="card-subtitle">{{cubeCounts?.emptyCubes}} empty cubicles</div>
+              <div class="card-subtitle">{{emptyCubeCount}} empty cubicles</div>
             </ion-card>
       </ion-col>
     </ion-row>
@@ -34,7 +32,7 @@
           <ion-item-group>
             <ion-item-divider color="primary"><b>{{team.name}}</b></ion-item-divider>
             <ion-item *ngFor="let teammate of team.members">
-              <h6>{{teammate}}</h6>
+              <h6>{{teammate.name}}</h6>
               <button item-end ion-button round small (click)="locateTeammate(teammate)">Locate</button>
             </ion-item>
           </ion-item-group>
@@ -42,6 +40,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <img src="assets/imgs/home.jpeg" alt="">
-  <img src="assets/imgs/office.jpeg" style="margin-top: -10px;" alt=""> -->
 </ion-content>

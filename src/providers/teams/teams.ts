@@ -28,14 +28,17 @@ export class TeamsProvider {
       this.lrService.getUser().subscribe( (user:CRSUser) => {
         const uid = user.uid;
         let userTeams;
-        let userTeamRef = this.afs.collection('/people/'+uid+'/teams');
-        userTeamRef.valueChanges().subscribe( (teams) => {
-          userTeams = teams;
+        let userRef = this.afs.collection('people').doc(uid);
+        userRef.valueChanges().subscribe( (user: CRSUser) => {
+          userTeams = user.teams;
           userTeams.forEach( (team) => {
             console.log(team);
-            let teamMembersRef = this.afs.collection('/teams/'+team.code+'/members');
-            teamMembersRef.valueChanges().subscribe( (value) => {
-              team.members = value;
+            let teamsRef = this.afs.collection('teams').doc(team.code);
+            teamsRef.valueChanges().subscribe( (t: CRSTeam) => {
+              team.members = [];
+              for(let key in t.members){
+                team.members.push( t.members[key] );
+              }
               observer.next(userTeams);
             })
           });

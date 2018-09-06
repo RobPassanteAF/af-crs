@@ -18,8 +18,12 @@
   cursor: not-allowed !important;
 }
 
+.reservedByCurrentUser {
+  cursor: pointer !important;
+}
+
 .located {
-  fill: #006B54;
+  fill: #006B54 !important;
   stroke: #000000;
   stroke-width: 2;
 }
@@ -36,7 +40,6 @@
 }
 
 .cubeText {
-  alignment-baseline: middle;
   font-size: 12px;
   font-weight: 700;
   stroke: none;
@@ -52,21 +55,19 @@
 }
 
 .cubeIdText {
-  alignment-baseline: middle;
   font-size: 10px;
   font-weight: 700;
   stroke: none;
   fill: #000000;
-  opacity: 0.05;
+  opacity: 0.10 !important;
 }
 
 .cubeIdText:hover {
-  opacity: 1;
+  opacity: 1 !important;
   font-size: 12px
 }
 
 .roomText {
-  alignment-baseline: middle;
   font-size: 12px;
   font-weight: 700;
   stroke: none;

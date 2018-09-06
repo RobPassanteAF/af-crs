@@ -4,7 +4,7 @@ import {LoginAndRegistrationProvider} from "../login-and-registration/login-and-
 import { CRSCubicle } from '../../models/CRSCubicle';
 import {AngularFireAuth} from "angularfire2/auth";
 import { AngularFirestore } from 'angularfire2/firestore';
-import { CRSCubeCounts } from '../../models/CRSCubeCounts';
+import { CRSCubeInfo } from '../../models/CRSCubeInfo';
 
 /*
   Generated class for the CubiclesProvider provider.
@@ -17,8 +17,7 @@ export class CubiclesProvider {
 
   emptyCubicles: number;
   lastReleaseAllDate: Date;
-  staticCubeCountId: string = 'IVMR4ftFaiHyUb9YI2Q2';
-  cubeCounts: CRSCubeCounts;
+  cubeInfo: CRSCubeInfo;
 
 
   constructor(private afs: AngularFirestore, private afAuth:AngularFireAuth, private lrService: LoginAndRegistrationProvider ) {
@@ -26,59 +25,55 @@ export class CubiclesProvider {
   }
 
   getAllCubibles() :Observable<CRSCubicle[]> {
-    return this.afs.collection<CRSCubicle>('/cubicles').valueChanges();
+    return this.afs.collection<CRSCubicle>('/cubicles', ref => ref.orderBy('empty','desc')).valueChanges();
   }
 
-  getCubeCounts() :Observable<CRSCubeCounts> {
-    return this.afs.collection('/cubeCounts').doc<CRSCubeCounts>(this.staticCubeCountId).valueChanges();
+  getCubeInfo() :Observable<CRSCubeInfo> {
+    return this.afs.collection('/cubeInfo').doc<CRSCubeInfo>('info').valueChanges();
   }
 
-  setCubeCounts( counts: CRSCubeCounts ):void {
-    this.cubeCounts = counts;
+  setCubeInfo( info: CRSCubeInfo ):void {
+    this.cubeInfo = info;
   }
 
-  getLastReleaseAllDate() :Observable<CRSCubeCounts> {
-    return this.getCubeCounts();
+  getLastReleaseAllDate() :Observable<CRSCubeInfo> {
+    return this.afs.collection('/cubeInfo').doc<CRSCubeInfo>('info').valueChanges();
   }
 
   setLastReleaseAllDate( lastReleaseAllDate: Date ):void {
-    this.afs.collection('/cubeCounts').doc(this.staticCubeCountId).update({lastReleaseAllDate:lastReleaseAllDate});   // not swapping, so one less
+    this.afs.collection('/cubeInfo').doc('info').update({lastReleaseAllDate:lastReleaseAllDate});   // not swapping, so one less
     this.lastReleaseAllDate = lastReleaseAllDate;
   }
 
-  reserveCubicle(id: string) {
-    console.log('reserving ' + id );
-    let releasing= false;
-    if(this.lrService.user.cubicle == null ) {
-      console.log("not null");
-      this.cubeCounts.emptyCubes = this.cubeCounts.emptyCubes - 1;
-      let cubeCountRef = this.afs.collection<CRSCubeCounts>('/cubeCounts');
-
-      cubeCountRef.doc(this.staticCubeCountId).set(this.cubeCounts);   // not swapping, so one less cubicle
-    }
-
-    this.releaseCubicle(this.lrService.user.cubicle, releasing);
-
-    let cubeRef = this.afs.collection<CRSCubicle>('cubicles/').doc(id);
-    cubeRef.update({person: this.lrService.user.uid, personName: this.lrService.user.fullName});
-    this.lrService.user.cubicle = id;
-    let personRef = this.afs.collection('people').doc(this.afAuth.auth.currentUser.uid);
-    personRef.update({cubicle: this.lrService.user.cubicle});
+  getEmptyCubicles(): Observable<any> {
+    return this.afs.collection('cubicles', ref => ref.where('empty', '==', true)).valueChanges();
   }
 
-  releaseCubicle(id: string, releasing = true ) {
-    if(releasing) {
-      this.cubeCounts.emptyCubes = this.cubeCounts.emptyCubes + 1;
-      let cubeCountRef = this.afs.collection<CRSCubeCounts>('/cubeCounts');
-      cubeCountRef.doc(this.staticCubeCountId).set(this.cubeCounts);   // actually releasing the cubicle so one more empty cubicle
+  reserveCubicle(id: string): Promise<any> {
+    if( this.lrService.user.cubicle ) {
+      //USER HAS A CUBE WE NEED TO RELEASE IT
+      this.releaseCubicle(this.lrService.user.cubicle).then( (releaseResult) => {
+        return this.processReservation(id)
+      });
+    } else {
+      return this.processReservation(id);
     }
+  }
 
-    console.log('releasing ' + id );
+  private processReservation(id: string): Promise<any> {
     let cubeRef = this.afs.collection<CRSCubicle>('cubicles/').doc(id);
-    cubeRef.update({person: null, personName: null});
-    this.lrService.user.cubicle = null;    // TODO: this will work once firebase async is connected
+    cubeRef.update({person: this.lrService.user.uid, empty: false});
+    this.lrService.user.cubicle = id;
     let personRef = this.afs.collection('people').doc(this.afAuth.auth.currentUser.uid);
-    personRef.update({cubicle: this.lrService.user.cubicle});
+    return personRef.update({cubicle: this.lrService.user.cubicle});
+  }
+
+  releaseCubicle(id: string, releasing: boolean = true ): Promise<any> {
+    let cubeRef = this.afs.collection<CRSCubicle>('cubicles/').doc(id);
+    cubeRef.update({person: null, empty: true});
+    this.lrService.user.cubicle = null;
+    let personRef = this.afs.collection('people').doc(this.afAuth.auth.currentUser.uid);
+    return personRef.update({cubicle: null});
   }
 
 }

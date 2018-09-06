@@ -5,7 +5,7 @@ import { TeamsProvider } from '../../providers/teams/teams';
 import { ReservePage } from '../reserve/reserve';
 import { CRSCubicle } from "../../models/CRSCubicle";
 import { Observable } from "rxjs/Observable";
-import { CRSCubeCounts } from '../../models/CRSCubeCounts';
+import { CRSCubeInfo } from '../../models/CRSCubeInfo';
 import { AppSettings } from '../../providers/app-settings/app-settings';
 import { CRSUser } from '../../models/CRSUser';
 import { ProfilePage } from '../profile/profile';
@@ -16,27 +16,30 @@ import { MessagingProvider } from '../../providers/messaging/messaging';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  cubeCounts: CRSCubeCounts;
+  cubeInfo: CRSCubeInfo;
   myTeamsAndTeammates;
   cubicles: Observable<CRSCubicle[]>;
   userTeams;
-  testList
+  emptyCubeCount:number;
 
   constructor(public navCtrl: NavController, private cubiclesService: CubiclesProvider, private teamsService: TeamsProvider, private appSettings: AppSettings, private msgService: MessagingProvider) {
-    this.cubiclesService.getCubeCounts().subscribe( (counts: CRSCubeCounts)=> {
-      this.cubiclesService.setCubeCounts(counts);
-      this.cubeCounts = counts;
+    this.cubiclesService.getCubeInfo().subscribe( (info: CRSCubeInfo)=> {
+      this.cubiclesService.setCubeInfo(info);
+      this.cubeInfo = info;
     });
 
     this.releaseAllCubicles();    // temporary workaround to release all cubicles
     this.getMyTeammates();
     this.checkProfile();
+    this.cubiclesService.getEmptyCubicles().subscribe((emptyCubes)=>{
+     this.emptyCubeCount = emptyCubes.length;
+    })
   }
 
 
   releaseAllCubicles() {
     this.cubiclesService.getAllCubibles().subscribe(cubicles => {
-      this.cubiclesService.getLastReleaseAllDate().subscribe( (cubeInfo: CRSCubeCounts)=> {
+      this.cubiclesService.getLastReleaseAllDate().subscribe( (cubeInfo: CRSCubeInfo) => {
         console.log(cubeInfo.lastReleaseAllDate);
         var scheduledRelease = new Date();
         scheduledRelease.setHours(5,0,0,0);
@@ -53,7 +56,13 @@ export class HomePage {
   }
 
   selectLocation(location: string) {
-
+    if ( location === 'HOME' ) {
+      if(this.appSettings.getUser().cubicle) {
+        this.cubiclesService.releaseCubicle(this.appSettings.getUser().cubicle, true);
+      }
+    } else {
+      this.navCtrl.push(ReservePage);
+    }
   }
 
   checkProfile(){
@@ -73,7 +82,7 @@ export class HomePage {
   }
 
   locateTeammate(teammate){
-    this.navCtrl.push(ReservePage,{"locate":{"uid":teammate.key,"name":teammate.val}});
+    this.navCtrl.push(ReservePage,{"locate":{"uid":teammate.uid,"name":teammate.name}});
   }
 
 }

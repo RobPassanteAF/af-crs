@@ -4,7 +4,7 @@ import { CRSCubeText } from "./CRSCubeText";
  * Created by robpassante on 1/26/18.
  */
 export class CRSCubicle{
-  // public id: number;
+  public empty: boolean;
   public cubeId: string;
   public xPosition: number;
   public yPosition: number;
