@@ -193,4 +193,9 @@ export class LoginAndRegistrationProvider {
       );
     });
   }
+
+  userIsWfh(): Promise<any>{
+    let personRef = this.afs.collection('people').doc(this.afAuth.auth.currentUser.uid);
+    return personRef.update({cubicle: null, wfh: true});
+  }
 }

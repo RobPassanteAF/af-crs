@@ -33,7 +33,7 @@
             <ion-item-divider color="primary"><b>{{team.name}}</b></ion-item-divider>
             <ion-item *ngFor="let teammate of team.members">
               <h6>{{teammate.name}}</h6>
-              <button item-end ion-button round small (click)="locateTeammate(teammate)">Locate</button>
+              <button ion-button round small item-end (click)="locateTeammate(teammate)">Locate</button>
             </ion-item>
           </ion-item-group>
         </ion-list>

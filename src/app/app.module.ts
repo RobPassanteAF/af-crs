@@ -22,9 +22,11 @@ import { TeamsProvider } from '../providers/teams/teams';
 import { AppSettings } from '../providers/app-settings/app-settings';
 import { TabsPage } from "../pages/tabs/tabs";
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { CallNumber } from '@ionic-native/call-number';
 import { CubeSvg } from "../shared/cube-svg/cube-svg";
 import { MapToIterable } from '../pipes/map-to-iterable';
 import { HideReservedCubes } from '../pipes/hide-reserved-cubes';
+import { PhonePipe } from '../pipes/format-phone';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDdO-kUI-XnVEhRdGbxS3hgVaPeAhN0UBY",
@@ -47,7 +49,8 @@ export const firebaseConfig = {
     ProfilePage,
     CubeSvg,
     MapToIterable,
-    HideReservedCubes
+    HideReservedCubes,
+    PhonePipe
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ export const firebaseConfig = {
     MessagingProvider,
     CubiclesProvider,
     AppSettings,
-    QRScanner
+    QRScanner,
+    CallNumber
   ]
 })
 export class AppModule {}

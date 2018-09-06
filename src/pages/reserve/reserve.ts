@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { CRSCubicle } from "../../models/CRSCubicle";
 import { CubiclesProvider } from "../../providers/cubicles/cubicles";
 import { MessagingProvider } from "../../providers/messaging/messaging";
@@ -7,6 +7,7 @@ import { QRScannerStatus, QRScanner } from '@ionic-native/qr-scanner';
 import { CRSUser } from '../../models/CRSUser';
 import { LoginAndRegistrationProvider } from '../../providers/login-and-registration/login-and-registration';
 import { Observable } from "rxjs/Observable";
+import { LocateCube } from '../../models/LocateCube';
 
 /**
  * Generated class for the ReservePage page.
@@ -28,7 +29,7 @@ export class ReservePage {
   locateUser: string;
 
   constructor( private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider,
-    private messagingService: MessagingProvider, private qrScanner: QRScanner, private navParams: NavParams) {
+    private messagingService: MessagingProvider, private qrScanner: QRScanner) {
     this.user = this.lrService.user;
     this.getAllCubicles();
   }
@@ -36,11 +37,15 @@ export class ReservePage {
   ionViewDidLoad() {
     this.viewType = "map";
     console.log('reserve view loaded');
-    const locate = this.navParams.get('locate');
+    const locate: LocateCube = this.cubiclesService.getCubeToLocate();
     if( locate ){
       this.locateUser = locate.uid;
       this.messagingService.toast('Locating ' + locate.name );
     }
+  }
+
+  ionViewDidLeave() {
+    this.locateUser = null;
   }
 
   locateCube( cube:CRSCubicle ): void {
@@ -71,7 +76,7 @@ export class ReservePage {
     let msg;
 
     if(cube.person && cube.person === this.user.uid){
-      this.cubiclesService.releaseCubicle(cube.cubeId);
+      this.cubiclesService.releaseCubicle(cube.cubeId, null);
       msg = 'Cubicle Released';
     } else if (!cube.person) {
       this.cubiclesService.reserveCubicle(cube.cubeId);

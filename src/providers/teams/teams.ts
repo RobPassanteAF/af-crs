@@ -25,23 +25,17 @@ export class TeamsProvider {
 
   myTeamMates(): Observable<any> {
     return Observable.create(observer => {
-      this.lrService.getUser().subscribe( (user:CRSUser) => {
-        const uid = user.uid;
-        let userTeams;
-        let userRef = this.afs.collection('people').doc(uid);
-        userRef.valueChanges().subscribe( (user: CRSUser) => {
-          userTeams = user.teams;
-          userTeams.forEach( (team) => {
-            console.log(team);
-            let teamsRef = this.afs.collection('teams').doc(team.code);
-            teamsRef.valueChanges().subscribe( (t: CRSTeam) => {
-              team.members = [];
-              for(let key in t.members){
-                team.members.push( t.members[key] );
-              }
-              observer.next(userTeams);
-            })
-          });
+      this.lrService.getUser().subscribe( (u:CRSUser) => {
+        let userTeams = u.teams;
+        userTeams.forEach( (team: any) => {
+          let teamsRef = this.afs.collection('teams').doc(team.code);
+          teamsRef.valueChanges().subscribe( (t: CRSTeam) => {
+            team.members = [];
+            for(let key in t.members){
+              team.members.push( t.members[key] );
+            }
+            observer.next(userTeams);
+          })
         })
       });
     });

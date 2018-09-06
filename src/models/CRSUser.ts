@@ -13,7 +13,7 @@ export class CRSUser {
   public cell: string;
   public teams: Array<CRSTeam>;
   public cubicle: string;
-  public wfh: boolean = false;
+  public wfh: any = null;
   public validated: boolean = false;
 
   constructor(){}
