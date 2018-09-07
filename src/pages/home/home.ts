@@ -68,6 +68,7 @@ export class HomePage {
         user.wfh = true;
         this.lrs.userIsWfh();
       }
+      this.msgService.toast('You have been checked-in as working from home.');
     } else {
       this.navCtrl.parent.select(1);
     }
