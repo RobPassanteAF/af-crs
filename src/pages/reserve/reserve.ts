@@ -34,7 +34,7 @@ export class ReservePage {
     this.getAllCubicles();
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.viewType = "map";
     console.log('reserve view loaded');
     const locate: LocateCube = this.cubiclesService.getCubeToLocate();
@@ -46,6 +46,7 @@ export class ReservePage {
 
   ionViewDidLeave() {
     this.locateUser = null;
+    this.cubiclesService.setCubeToLocate(null);
   }
 
   locateCube( cube:CRSCubicle ): void {

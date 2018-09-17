@@ -63,7 +63,7 @@ export class CubiclesProvider {
 
   private processReservation(id: string): Promise<any> {
     let cubeRef = this.afs.collection<CRSCubicle>('cubicles/').doc(id);
-    cubeRef.update({person: this.lrService.user.uid, empty: false});
+    cubeRef.update({person: this.lrService.user.uid, empty: false, personName: this.lrService.user.fullName});
     this.lrService.user.cubicle = id;
     let personRef = this.afs.collection('people').doc(this.afAuth.auth.currentUser.uid);
     return personRef.update({cubicle: this.lrService.user.cubicle, wfh: false});

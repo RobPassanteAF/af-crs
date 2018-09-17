@@ -92,6 +92,9 @@ export class HomePage {
 
   locateTeammate(teammate){
     let locate_sub = this.lrs.getUserByUid(teammate.uid).subscribe(( u: CRSUser ) => {
+      if(locate_sub){
+        locate_sub.unsubscribe();
+      }
       if(u.cubicle){
         const c: LocateCube = new LocateCube( teammate.uid, teammate.name );
         this.cubiclesService.setCubeToLocate(c);
@@ -102,7 +105,7 @@ export class HomePage {
           {
             text: 'Dismiss',
             handler: () => {
-              locate_sub.unsubscribe();
+              //dismiss
             }
           }
         ]
@@ -112,7 +115,6 @@ export class HomePage {
             text: 'Call',
             handler: () => {
               console.log('Call ' + u.cell);
-              locate_sub.unsubscribe();
               this.callNumber.callNumber(u.cell, true)
                 .then(res => console.log('Launched dialer!', res))
                 .catch(err => console.log('Error launching dialer', err));
