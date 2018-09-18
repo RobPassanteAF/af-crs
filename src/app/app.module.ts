@@ -43,7 +43,6 @@ export const firebaseConfig = {
     TabsPage,
     HomePage,
     LoginPage,
-    RegisterPage,
     ReservePage,
     RegisterPage,
     ProfilePage,
@@ -65,7 +64,6 @@ export const firebaseConfig = {
     TabsPage,
     HomePage,
     LoginPage,
-    RegisterPage,
     ReservePage,
     RegisterPage,
     ProfilePage

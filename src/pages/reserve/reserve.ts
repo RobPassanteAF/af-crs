@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
 import { CRSCubicle } from "../../models/CRSCubicle";
 import { CubiclesProvider } from "../../providers/cubicles/cubicles";
 import { MessagingProvider } from "../../providers/messaging/messaging";
@@ -16,7 +15,6 @@ import { LocateCube } from '../../models/LocateCube';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-reserve',
   templateUrl: 'reserve.html',
