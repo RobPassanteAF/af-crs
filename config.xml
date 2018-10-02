@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>af-crs</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+<widget id="org.arbfile.mobile.crs" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>CRS</name>
+    <description>Cubicle Registration System</description>
+    <author email="mobile@arbfile.org" href="http://www.arbfile.org/">Arbitration Forums, Inc.</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -62,19 +62,12 @@
         <icon height="58" src="resources/ios/icon/icon-small@2x.png" width="58" />
         <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87" />
         <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
-        <splash height="1136" src="resources/ios/splash/Default-568h@2x~iphone.png" width="640" />
-        <splash height="1334" src="resources/ios/splash/Default-667h.png" width="750" />
-        <splash height="2208" src="resources/ios/splash/Default-736h.png" width="1242" />
-        <splash height="1242" src="resources/ios/splash/Default-Landscape-736h.png" width="2208" />
-        <splash height="1536" src="resources/ios/splash/Default-Landscape@2x~ipad.png" width="2048" />
-        <splash height="2048" src="resources/ios/splash/Default-Landscape@~ipadpro.png" width="2732" />
-        <splash height="768" src="resources/ios/splash/Default-Landscape~ipad.png" width="1024" />
-        <splash height="2048" src="resources/ios/splash/Default-Portrait@2x~ipad.png" width="1536" />
-        <splash height="2732" src="resources/ios/splash/Default-Portrait@~ipadpro.png" width="2048" />
-        <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
-        <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
-        <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
-        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <splash src="resources/ios/splash/Default@2x~universal~anyany.png" />
+        <splash src="resources/ios/splash/Default@2x~universal~comany.png" />
+        <splash src="resources/ios/splash/Default@2x~universal~comcom.png" />
+        <splash src="resources/ios/splash/Default@3x~universal~anyany.png" />
+        <splash src="resources/ios/splash/Default@3x~universal~anycom.png" />
+        <splash src="resources/ios/splash/Default@3x~universal~comany.png" />
     </platform>
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
