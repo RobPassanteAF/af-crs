@@ -29,7 +29,7 @@
   </ion-segment>
 
   <div style="overflow: auto" *ngIf="viewType==='map'">
-    <svg width="855" height="875">
+    <svg width="855" height="875" *ngIf="!scanningQRCode">
       <svg:g cube-svg *ngFor="let cubicle of cubicles | async" [cubeData]="cubicle" [locate]="locateUser"
       [attr.transform]="'translate('+cubicle.xPosition+','+cubicle.yPosition+')'" (click)="toggleCube(cubicle)"></svg:g>
     </svg>

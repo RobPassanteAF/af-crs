@@ -25,6 +25,7 @@ export class ReservePage {
   viewType: string;
   cubicles: Observable<CRSCubicle[]>;
   locateUser: string;
+  scanningQRCode: boolean = false;
 
   constructor( private cubiclesService: CubiclesProvider, private lrService: LoginAndRegistrationProvider,
     private messagingService: MessagingProvider, private qrScanner: QRScanner) {
@@ -87,6 +88,7 @@ export class ReservePage {
   scanQRCode() {
     this.qrScanner.prepare().then( (status: QRScannerStatus) => {
       if (status.authorized) {
+        this.scanningQRCode = true;
         (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
      //   (window.document.querySelector('.listContent') as HTMLElement).classList.add('hideScrollContent');
 
@@ -100,7 +102,10 @@ export class ReservePage {
         this.qrScanner.hide(); // hide camera preview
         (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
         (window.document.querySelector('.listContent') as HTMLElement).classList.remove('hideScrollContent');
+        this.scanningQRCode = false;
         scanSub.unsubscribe(); // stop scanning
+      },(error){
+        this.scanningQRCode = false;
       });
 
       // show camera preview
